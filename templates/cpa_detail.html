@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ cpa.name }} - CPA Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Your existing header content -->
+    </header>
+
+    <main class="cpa-detail">
+        <h1>{{ cpa.name }} <span class="checkmark">✓</span></h1>
+        <div class="actions">
+            <button class="favorite">❤</button>
+            <button class="contact">Contact</button>
+            <button class="share">Share</button>
+        </div>
+        <p>{{ cpa.description }}</p>
+        <div class="social-links">
+            {% if cpa.website %}<a href="{{ cpa.website }}" target="_blank">🌐</a>{% endif %}
+            {% if cpa.linkedin %}<a href="{{ cpa.linkedin }}" target="_blank">in</a>{% endif %}
+        </div>
+
+        <section>
+            <h2>Supported client types</h2>
+            <div class="tags">
+                {% for client_type in cpa.client_types %}
+                <span class="tag">{{ client_type }}</span>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Specialties</h2>
+            <div class="tags">
+                {% for tag in cpa.tags %}
+                <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Services</h2>
+            <div class="tags">
+                {% for service in cpa.services %}
+                <a href="{{ url_for('service', type=service.lower().replace(' ', '-')) }}" class="tag">{{ service }}</a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>About {{ cpa.name }}</h2>
+            <div class="about-grid">
+                <div>
+                    <strong>Employees</strong>
+                    <p>{{ cpa.employees }}</p>
+                </div>
+                <div>
+                    <strong>Founding year</strong>
+                    <p>{{ cpa.founding_year }}</p>
+                </div>
+                <div>
+                    <strong>Rate range</strong>
+                    <p>{{ cpa.rate_range }}</p>
+                </div>
+                <div>
+                    <strong>Location</strong>
+                    <p>{{ cpa.location }}</p>
+                </div>
+                <div>
+                    <strong>Support</strong>
+                    <p>{{ cpa.support }}</p>
+                </div>
+                <div>
+                    <strong>Software</strong>
+                    <p>{{ cpa.software }}</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sam's List. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Specialty ▼</button>
+                        <div class="dropdown-content">
+                            <a href="{{ url_for('specialty', type='first-home-buyer') }}">First Home Buyer</a>
+                            <a href="{{ url_for('specialty', type='property-investor') }}">Property Investor</a>
+                            <a href="{{ url_for('specialty', type='self-employed') }}">Self-Employed</a>
+                            <a href="{{ url_for('specialty', type='bad-credit-history') }}">Bad Credit History</a>
+                            <a href="{{ url_for('specialty', type='refinancing') }}">Refinancing</a>
+                            <a href="{{ url_for('specialty', type='new-to-nz') }}">New to NZ</a>
+                            <a href="{{ url_for('specialty', type='high-net-worth-individual') }}">High Net Worth Individual</a>
+                            <a href="{{ url_for('specialty', type='commercial-property') }}">Commercial Property</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Service ▼</button>
+                        <div class="dropdown-content">
+                            <a href="{{ url_for('service', type='home-loans') }}">Home Loans</a>
+                            <a href="{{ url_for('service', type='investment-property-loans') }}">Investment Property Loans</a>
+                            <a href="{{ url_for('service', type='construction-loans') }}">Construction Loans</a>
+                            <a href="{{ url_for('service', type='refinancing') }}">Refinancing</a>
+                            <a href="{{ url_for('service', type='debt-consolidation') }}">Debt Consolidation</a>
+                            <a href="{{ url_for('service', type='kiwisaver-first-home-withdrawals') }}">KiwiSaver First Home Withdrawals</a>
+                            <a href="{{ url_for('service', type='welcome-home-loan-scheme') }}">Welcome Home Loan Scheme</a>
+                            <a href="{{ url_for('service', type='commercial-property-finance') }}">Commercial Property Finance</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#">Most Recommended</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" class="button">Find CPAs</a>
+            <a href="#" class="button">Log in</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>{{ title }}</h1>
+
+        <section class="cpa-list">
+            {% for cpa in cpas %}
+            <article class="cpa-card">
+                <h2><a href="{{ url_for('cpa_detail', cpa_id=cpa.id) }}">{{ cpa.name }}</a> {% if cpa.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                <p>{{ cpa.description }}</p>
+                <div class="tags">
+                    {% for tag in cpa.tags[:5] %}
+                    <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                <div class="endorsements">
+                    {% for endorsement in cpa.endorsements %}
+                    <div class="endorsement">
+                        <p>"{{ endorsement.comment }}"</p>
+                        <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
+                        <p>{{ endorsement.title }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a href="#">See endorsements</a>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+
+    <aside>
+        <h2>Read this first</h2>
+        <p>I asked my 250,000 Twitter followers if they have a mortgage broker in New Zealand who they love.</p>
+        <p>Then, I called all of them.</p>
+        <p>Asking how much they charge, how they operate, and other questions only a neurotic person calling +100 mortgage brokers would ask.</p>
+        <p>Why do this? Well, because I'm a Kiwi nerd, and I needed a mortgage.</p>
+        <p>Then I thought, what the hell, how about I make this into a site other Kiwi home-seekers could use.</p>
+        <h3>Welcome to Sam's List NZ.</h3>
+        <ul>
+            <li>See who's endorsed a mortgage broker (and why)</li>
+            <li>Contact a mortgage broker</li>
+            <li>Publicly ask a mortgage broker a question on their profile page</li>
+            <li>Get matched with a mortgage broker</li>
+            <li>And research mortgage brokers</li>
+        </ul>
+        <p>Easy peezy.</p>
+        <p>Please... if you have a good mortgage broker in NZ, add them to the list... because I'm always searching :)</p>
+    </aside>
+
+    <footer>
+        <p>&copy; 2024 Sam's List NZ. All rights reserved.</p>
+    </footer>
+</body>
+</html>
