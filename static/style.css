@@ -213,3 +213,9 @@ a:hover {
     background-color: #e0e0e0;
     text-decoration: none;
 }
+
+.logo {
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 1rem;
+    vertical-align: middle;
+}
