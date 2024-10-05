@@ -15,7 +15,7 @@
         <h1>{{ cpa.name }} <span class="checkmark">✓</span></h1>
         <div class="actions">
             <button class="favorite">❤</button>
-            <button class="contact">Contact</button>
+            <button class="contact-btn">Contact</button>
             <button class="share">Share</button>
         </div>
         <p>{{ cpa.description }}</p>
@@ -85,5 +85,22 @@
     <footer>
         <p>&copy; 2024 Sam's List. All rights reserved.</p>
     </footer>
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Contact {{ cpa.name }}</h2>
+        <form id="contactForm">
+          <input type="hidden" id="cpa_id" name="cpa_id" value="{{ cpa.id }}">
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

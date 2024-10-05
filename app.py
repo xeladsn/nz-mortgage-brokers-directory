@@ -1,6 +1,22 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request, jsonify
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
+
+# Load environment variables
+load_dotenv()
+
+# Email configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+
+mail = Mail(app)
 
 # Mock data for CPAs
 cpas = [
@@ -95,6 +111,35 @@ def specialty(type):
 def service(type):
     filtered_cpas = [cpa for cpa in cpas if type in [service.replace(' ', '-').lower() for service in cpa['services']]]
     return render_template('home.html', cpas=filtered_cpas, title=f"{type.replace('-', ' ').title()}")
+
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    data = request.json
+    cpa_id = int(data.get('cpa_id'))
+    sender_email = data.get('email')  # This is the email from the form
+    message_text = data.get('message')
+
+    # Find the CPA by ID
+    cpa = next((cpa for cpa in cpas if cpa['id'] == cpa_id), None)
+    if not cpa:
+        return jsonify({'success': False, 'message': 'CPA not found'}), 404
+    # Construct the email message
+    subject = f"Details for {cpa['name']}"
+    body = f"Message:\n{message_text}"
+
+    try:
+        # Create a message
+        msg = Message(subject,
+                      sender=app.config['MAIL_DEFAULT_SENDER'],
+                      recipients=[sender_email])  # Send to the email from the form
+        msg.body = body
+
+        mail.send(msg)
+        print("Message sent successfully")
+        return jsonify({'success': True, 'message': 'Message sent successfully'}), 200
+    except Exception as e:
+        print(f"Error sending email: {str(e)}")
+        return jsonify({'success': False, 'message': 'Failed to send message'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
