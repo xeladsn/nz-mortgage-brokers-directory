@@ -142,4 +142,4 @@ def send_message():
         return jsonify({'success': False, 'message': 'Failed to send message'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
