@@ -1,19 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+    /* Color variables */
+    --color-primary: #333333;
+    --color-secondary: #4CAF50;
+    --color-background: #f4f4f4;
+    --color-background-light: #ffffff;
+    --color-text: #333333;
+    --color-text-light: #666666;
+    --color-border: #dddddd;
+    --color-tag: #f4f4f4;
+    --color-tag-hover: #e0e0e0;
+    --color-link: #0066cc;
+    --color-link-hover: #004999;
+
+    /* Font variables */
+    --font-heading: 'Arial'; 'Roboto', sans-serif; 'Playfair Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', serif;
+    --font-body: 'Arial'; 'Roboto', sans-serif; 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 300px;
-    grid-template-areas: 
+    grid-template-areas:
         "header header"
         "main aside"
         "footer footer";
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
 }
 
 header {
     grid-area: header;
-    background-color: #f4f4f4;
+    background-color: var(--color-background);
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -21,24 +49,25 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 main {
     grid-area: main;
     padding: 0 2rem 2rem;
+    background-color: var(--color-background-light);
 }
 
 aside {
     grid-area: aside;
-    background-color: #f4f4f4;
+    background-color: var(--color-background);
     padding: 1rem;
 }
 
 footer {
     grid-area: footer;
-    background-color: #333;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-background-light);
     text-align: center;
     padding: 1rem;
 }
@@ -54,23 +83,23 @@ nav ul li {
 }
 
 .auth-buttons .button {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-background-light);
     padding: 0.5rem 1rem;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .cpa-card {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #fff;
+    background-color: var(--color-background-light);
     border-radius: 5px;
 }
 
 .tag {
-    background-color: #f4f4f4;
+    background-color: var(--color-tag);
     padding: 0.2rem 0.5rem;
     margin-right: 0.5rem;
     border-radius: 3px;
@@ -80,18 +109,20 @@ nav ul li {
 .endorsement {
     margin-top: 1rem;
     font-style: italic;
+    color: var(--color-text-light);
 }
 
-h1 {
-    color: #333;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary);
 }
 
 a {
-    color: #0066cc;
+    color: var(--color-link);
     text-decoration: none;
 }
 
 a:hover {
+    color: var(--color-link-hover);
     text-decoration: underline;
 }
 
@@ -101,8 +132,8 @@ a:hover {
 }
 
 .dropbtn {
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--color-background);
+    color: var(--color-text);
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -112,21 +143,21 @@ a:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: var(--color-background-light);
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
 .dropdown-content a {
-    color: black;
+    color: var(--color-text);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: var(--color-tag);
 }
 
 .dropdown:hover .dropdown-content {
@@ -134,12 +165,12 @@ a:hover {
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #e0e0e0;
+    background-color: var(--color-tag);
 }
 
 .nationwide {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--color-secondary);
+    color: var(--color-background-light);
     padding: 2px 5px;
     border-radius: 3px;
     font-size: 0.8em;
@@ -158,7 +189,7 @@ a:hover {
 }
 
 .checkmark {
-    color: #4CAF50;
+    color: var(--color-secondary);
     margin-left: 10px;
 }
 
@@ -170,8 +201,8 @@ a:hover {
 
 .actions button {
     padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-tag);
     cursor: pointer;
 }
 
@@ -191,7 +222,7 @@ a:hover {
 }
 
 .about-grid div {
-    background-color: #f8f8f8;
+    background-color: var(--color-tag);
     padding: 10px;
     border-radius: 5px;
 }
@@ -202,90 +233,93 @@ a:hover {
 }
 
 .tag, .service {
-    background-color: #f4f4f4;
+    background-color: var(--color-tag);
     padding: 0.2rem 0.5rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
     border-radius: 3px;
     font-size: 0.8em;
     text-decoration: none;
-    color: #333;
+    color: var(--color-text);
     display: inline-block;
 }
 
 .tag:hover, .service:hover {
-    background-color: #e0e0e0;
+    background-color: var(--color-tag-hover);
     text-decoration: none;
 }
 
 .logo {
-    height: 40px; /* Adjust the height as needed */
+    height: 40px;
     margin-right: 1rem;
     vertical-align: middle;
 }
 
 /* Modal styles */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
+    background-color: var(--color-background-light);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid var(--color-border);
+    width: 80%;
+    max-width: 500px;
 }
 
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+    color: var(--color-text-light);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* Form styles */
 #contactForm {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #contactForm label {
-  margin-top: 10px;
+    margin-top: 10px;
+    color: var(--color-text);
 }
 
 #contactForm input,
 #contactForm textarea {
-  margin-top: 5px;
-  padding: 5px;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
 }
 
 #contactForm button {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 #contactForm button:hover {
-  background-color: #45a049;
+    background-color: #45a049;
 }
