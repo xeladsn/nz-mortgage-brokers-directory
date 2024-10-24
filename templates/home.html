@@ -73,7 +73,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a href="#">See endorsements</a>
+                <a href="{{ url_for('cpa_detail', cpa_id=cpa.id) }}">See endorsements</a>
             </article>
             {% endfor %}
         </section>

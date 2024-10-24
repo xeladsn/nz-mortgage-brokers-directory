@@ -120,6 +120,19 @@
                 </div>
             </div>
         </section>
+
+        <section>
+            <h2>Endorsements</h2>
+            <div class="endorsements">
+                {% for endorsement in cpa.endorsements %}
+                <div class="endorsement">
+                    <p>"{{ endorsement.comment }}"</p>
+                    <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
+                    <p>{{ endorsement.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
     </main>
 
     <footer>

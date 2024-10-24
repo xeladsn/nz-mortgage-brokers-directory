@@ -51,7 +51,7 @@ cpas = [
                 "date": "Jun 17, 2024",
                 "comment": "NZ Property Finance has been crucial in growing my property portfolio. Their market insights and negotiation skills with lenders are top-notch.",
                 "title": "Director at Auckland Property Developments"
-            }
+            },
         ]
     },
     {
