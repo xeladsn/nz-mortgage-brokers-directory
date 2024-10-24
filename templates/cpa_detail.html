@@ -8,7 +8,47 @@
 </head>
 <body>
     <header>
-        <!-- Your existing header content -->
+        <nav>
+            <ul>
+                <li><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></li>
+                <li><a href="#">About Us</a></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Specialty ▼</button>
+                        <div class="dropdown-content">
+                            <a href="{{ url_for('specialty', type='first-home-buyer') }}">First Home Buyer</a>
+                            <a href="{{ url_for('specialty', type='property-investor') }}">Property Investor</a>
+                            <a href="{{ url_for('specialty', type='self-employed') }}">Self-Employed</a>
+                            <a href="{{ url_for('specialty', type='bad-credit-history') }}">Bad Credit History</a>
+                            <a href="{{ url_for('specialty', type='refinancing') }}">Refinancing</a>
+                            <a href="{{ url_for('specialty', type='new-to-nz') }}">New to NZ</a>
+                            <a href="{{ url_for('specialty', type='high-net-worth-individual') }}">High Net Worth Individual</a>
+                            <a href="{{ url_for('specialty', type='commercial-property') }}">Commercial Property</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">Service ▼</button>
+                        <div class="dropdown-content">
+                            <a href="{{ url_for('service', type='home-loans') }}">Home Loans</a>
+                            <a href="{{ url_for('service', type='investment-property-loans') }}">Investment Property Loans</a>
+                            <a href="{{ url_for('service', type='construction-loans') }}">Construction Loans</a>
+                            <a href="{{ url_for('service', type='refinancing') }}">Refinancing</a>
+                            <a href="{{ url_for('service', type='debt-consolidation') }}">Debt Consolidation</a>
+                            <a href="{{ url_for('service', type='kiwisaver-first-home-withdrawals') }}">KiwiSaver First Home Withdrawals</a>
+                            <a href="{{ url_for('service', type='welcome-home-loan-scheme') }}">Welcome Home Loan Scheme</a>
+                            <a href="{{ url_for('service', type='commercial-property-finance') }}">Commercial Property Finance</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#">Most Recommended</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" class="button">Find CPAs</a>
+            <a href="#" class="button">Log in</a>
+        </div>
     </header>
 
     <main class="cpa-detail">
