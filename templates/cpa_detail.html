@@ -129,16 +129,26 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Contact {{ cpa.name }}</h2>
-        <form id="contactForm">
-          <input type="hidden" id="cpa_id" name="cpa_id" value="{{ cpa.id }}">
-          <label for="email">Your Email:</label>
-          <input type="email" id="email" name="email" required>
+            <form id="contactForm">
+              <input type="hidden" id="cpa_id" name="cpa_id" value="{{ cpa.id }}">
 
-          <label for="message">Message:</label>
-          <textarea id="message" name="message" required></textarea>
+              <label for="email">Your Email:</label>
+              <input type="email" id="email" name="email" required>
 
-          <button type="submit">Send Message</button>
-        </form>
+              <label for="first_name">First Name:</label>
+              <input type="text" id="first_name" name="first_name" required>
+
+              <label for="last_name">Last Name:</label>
+              <input type="text" id="last_name" name="last_name" required>
+
+              <label for="profession">Profession:</label>
+              <input type="text" id="profession" name="profession" required>
+
+              <label for="household_income">Household Tax Income:</label>
+              <input type="text" id="household_income" name="household_income" required>
+
+              <button type="submit">Send Message</button>
+            </form>
       </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

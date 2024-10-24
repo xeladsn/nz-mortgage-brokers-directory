@@ -21,7 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
   form.onsubmit = function(e) {
     e.preventDefault();
     var email = document.getElementById('email').value;
-    var message = document.getElementById('message').value;
+    var firstName = document.getElementById('first_name').value;
+    var lastName = document.getElementById('last_name').value;
+    var profession = document.getElementById('profession').value;
+    var householdIncome = document.getElementById('household_income').value;
     var cpaId = document.getElementById('cpa_id').value;
 
     fetch('/send_message', {
@@ -32,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
       body: JSON.stringify({
         cpa_id: cpaId,
         email: email,
-        message: message
+        first_name: firstName,
+        last_name: lastName,
+        profession: profession,
+        household_income: householdIncome
       }),
     })
     .then(response => response.json())

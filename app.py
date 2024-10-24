@@ -116,22 +116,33 @@ def service(type):
 def send_message():
     data = request.json
     cpa_id = int(data.get('cpa_id'))
-    sender_email = data.get('email')  # This is the email from the form
-    message_text = data.get('message')
+    email = data.get('email')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    profession = data.get('profession')
+    household_income = data.get('household_income')
 
     # Find the CPA by ID
     cpa = next((cpa for cpa in cpas if cpa['id'] == cpa_id), None)
     if not cpa:
         return jsonify({'success': False, 'message': 'CPA not found'}), 404
+
     # Construct the email message
-    subject = f"Details for {cpa['name']}"
-    body = f"Message:\n{message_text}"
+    subject = f"New request for {cpa['name']}"
+    body = f"""
+    You have a new contact request from {first_name} {last_name}.
+
+    Email: {email}
+    Profession: {profession}
+    Household Tax Income: {household_income}
+    
+    Please forward this message to the appropriate person at {cpa['name']} for follow-up.
+    """
 
     try:
-        # Create a message
         msg = Message(subject,
                       sender=app.config['MAIL_DEFAULT_SENDER'],
-                      recipients=[sender_email])  # Send to the email from the form
+                      recipients=[os.getenv("RECIPIENT_EMAIL")])
         msg.body = body
 
         mail.send(msg)
