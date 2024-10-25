@@ -126,9 +126,12 @@
             <div class="endorsements">
                 {% for endorsement in cpa.endorsements %}
                 <div class="endorsement">
-                    <p>"{{ endorsement.comment }}"</p>
-                    <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
-                    <p>{{ endorsement.title }}</p>
+                    <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
+                    <div class="endorsement-text">
+                        <p>"{{ endorsement.comment }}"</p>
+                        <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
+                        <p>{{ endorsement.title }}</p>
+                    </div>
                 </div>
                 {% endfor %}
             </div>

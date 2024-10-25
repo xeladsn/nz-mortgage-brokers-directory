@@ -33,7 +33,15 @@ cpas = [
                 "name": "Sarah Thompson",
                 "date": "May 9, 2024",
                 "comment": "Kiwi Home Loans made my first home buying experience a breeze. Their knowledge of first home buyer schemes was invaluable.",
-                "title": "Marketing Manager at Wellington Tech"
+                "title": "Marketing Manager at Wellington Tech",
+                "picture": "sarah_thompson.jpg"
+            },
+            {
+                "name": "John Smith",
+                "date": "June 4, 2024",
+                "comment": "Great service and very professional.",
+                "title": "Engineer at Auckland Engineering",
+                "picture": "john_smith.jpg"
             }
         ]
     },
@@ -50,8 +58,16 @@ cpas = [
                 "name": "Michael Chen",
                 "date": "Jun 17, 2024",
                 "comment": "NZ Property Finance has been crucial in growing my property portfolio. Their market insights and negotiation skills with lenders are top-notch.",
-                "title": "Director at Auckland Property Developments"
+                "title": "Director at Auckland Property Developments",
+                "picture": "michael_chen.jpg"
             },
+            {
+                "name": "Jane Doe",
+                "date": "July 1, 2024",
+                "comment": "Very knowledgeable and helpful.",
+                "title": "Investor at Wellington Investments",
+                "picture": "jane_doe.jpg"
+            }
         ]
     },
     {
@@ -67,7 +83,15 @@ cpas = [
                 "name": "Emma Wilson",
                 "date": "May 2, 2024",
                 "comment": "As a freelancer, I thought getting a mortgage would be impossible. Fern Financials not only made it possible but made the whole process smooth and stress-free.",
-                "title": "Freelance Graphic Designer"
+                "title": "Freelance Graphic Designer",
+                "picture": "emma_wilson.jpg"
+            },
+            {
+                "name": "David Brown",
+                "date": "June 20, 2024",
+                "comment": "Excellent service and support.",
+                "title": "Small Business Owner",
+                "picture": "david_brown.jpg"
             }
         ]
     },
@@ -84,7 +108,15 @@ cpas = [
                 "name": "James Tait",
                 "date": "Apr 10, 2024",
                 "comment": "Koru Mortgages has been my go-to for all things property finance. Their expertise across different loan types and lenders is unmatched.",
-                "title": "CEO of Christchurch Retail Group"
+                "title": "CEO of Christchurch Retail Group",
+                "picture": "james_tait.jpg"
+            },
+            {
+                "name": "Laura White",
+                "date": "July 15, 2024",
+                "comment": "Very efficient and reliable.",
+                "title": "Real Estate Agent",
+                "picture": "laura_white.jpg"
             }
         ]
     }
