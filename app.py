@@ -18,8 +18,8 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 
 mail = Mail(app)
 
-# Mock data for CPAs
-cpas = [
+# Mock data for MAs
+mas = [
     {
         "id": 1,
         "name": "Kiwi Home Loans",
@@ -145,43 +145,43 @@ cpas = [
 
 @app.route('/')
 def home():
-    return render_template('home.html', cpas=cpas, title="Find the best mortgage brokers in NZ")
+    return render_template('home.html', mas=mas, title="Find the best mortgage brokers in NZ")
 
-@app.route('/cpa/<int:cpa_id>')
-def cpa_detail(cpa_id):
-    cpa = next((cpa for cpa in cpas if cpa['id'] == cpa_id), None)
-    if cpa:
-        return render_template('cpa_detail.html', cpa=cpa)
+@app.route('/ma/<int:ma_id>')
+def ma_detail(ma_id):
+    ma = next((ma for ma in mas if ma['id'] == ma_id), None)
+    if ma:
+        return render_template('ma_detail.html', ma=ma)
     else:
         abort(404)
 
 @app.route('/specialty/<type>')
 def specialty(type):
-    filtered_cpas = [cpa for cpa in cpas if type in [tag.replace(' ', '-').lower() for tag in cpa['tags']]]
-    return render_template('home.html', cpas=filtered_cpas, title=f"Top {type.replace('-', ' ').title()} Expert Firms")
+    filtered_mas = [ma for ma in mas if type in [tag.replace(' ', '-').lower() for tag in ma['tags']]]
+    return render_template('home.html', mas=filtered_mas, title=f"Top {type.replace('-', ' ').title()} Expert Firms")
 
 @app.route('/service/<type>')
 def service(type):
-    filtered_cpas = [cpa for cpa in cpas if type in [service.replace(' ', '-').lower() for service in cpa['services']]]
-    return render_template('home.html', cpas=filtered_cpas, title=f"{type.replace('-', ' ').title()}")
+    filtered_mas = [ma for ma in mas if type in [service.replace(' ', '-').lower() for service in ma['services']]]
+    return render_template('home.html', mas=filtered_mas, title=f"{type.replace('-', ' ').title()}")
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
     data = request.json
-    cpa_id = int(data.get('cpa_id'))
+    ma_id = int(data.get('ma_id'))
     email = data.get('email')
     first_name = data.get('first_name')
     last_name = data.get('last_name')
     profession = data.get('profession')
     household_income = data.get('household_income')
 
-    # Find the CPA by ID
-    cpa = next((cpa for cpa in cpas if cpa['id'] == cpa_id), None)
-    if not cpa:
-        return jsonify({'success': False, 'message': 'CPA not found'}), 404
+    # Find the MA by ID
+    ma = next((ma for ma in mas if ma['id'] == ma_id), None)
+    if not ma:
+        return jsonify({'success': False, 'message': 'MA not found'}), 404
 
     # Construct the email message
-    subject = f"New request for {cpa['name']}"
+    subject = f"New request for {ma['name']}"
     body = f"""
     You have a new contact request from {first_name} {last_name}.
 
@@ -189,7 +189,7 @@ def send_message():
     Profession: {profession}
     Household Tax Income: {household_income}
     
-    Please forward this message to the appropriate person at {cpa['name']} for follow-up.
+    Please forward this message to the appropriate person at {ma['name']} for follow-up.
     """
 
     try:

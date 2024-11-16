@@ -47,7 +47,7 @@
             </ul>
         </nav>
         <div class="auth-buttons">
-            <a href="#" class="button">Find CPAs</a>
+            <a href="#" class="button">Find MAs</a>
             <a href="#" class="button">Log in</a>
         </div>
     </header>
@@ -55,18 +55,18 @@
     <main>
         <h1>{{ title }}</h1>
 
-        <section class="cpa-list">
-            {% for cpa in cpas %}
-            <article class="cpa-card">
-                <h2><a href="{{ url_for('cpa_detail', cpa_id=cpa.id) }}">{{ cpa.name }}</a> {% if cpa.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
-                <p>{{ cpa.description }}</p>
+        <section class="ma-list">
+            {% for ma in mas %}
+            <article class="ma-card">
+                <h2><a href="{{ url_for('ma_detail', ma_id=ma.id) }}">{{ ma.name }}</a> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                <p>{{ ma.description }}</p>
                 <div class="tags">
-                    {% for tag in cpa.tags[:5] %}
+                    {% for tag in ma.tags[:5] %}
                     <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
                     {% endfor %}
                 </div>
                 <div class="endorsement">
-                    {% for endorsement in cpa.endorsements[:1] %}
+                    {% for endorsement in ma.endorsements[:1] %}
                     <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
                     <div class="endorsement-text">
                         <p>"{{ endorsement.comment }}"</p>
@@ -75,7 +75,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a href="{{ url_for('cpa_detail', cpa_id=cpa.id) }}">See endorsements</a>
+                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}">See endorsements</a>
             </article>
             {% endfor %}
         </section>

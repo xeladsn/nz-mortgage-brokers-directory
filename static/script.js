@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var lastName = document.getElementById('last_name').value;
     var profession = document.getElementById('profession').value;
     var householdIncome = document.getElementById('household_income').value;
-    var cpaId = document.getElementById('cpa_id').value;
+    var maId = document.getElementById('ma_id').value;
 
     fetch('/send_message', {
       method: 'POST',
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        cpa_id: cpaId,
+        ma_id: maId,
         email: email,
         first_name: firstName,
         last_name: lastName,

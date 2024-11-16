@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ cpa.name }} - CPA Details</title>
+    <title>{{ ma.name }} - MA Details</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -46,28 +46,28 @@
             </ul>
         </nav>
         <div class="auth-buttons">
-            <a href="#" class="button">Find CPAs</a>
+            <a href="#" class="button">Find MAs</a>
             <a href="#" class="button">Log in</a>
         </div>
     </header>
 
-    <main class="cpa-detail">
-        <h1>{{ cpa.name }} <span class="checkmark">✓</span></h1>
+    <main class="ma-detail">
+        <h1>{{ ma.name }} <span class="checkmark">✓</span></h1>
         <div class="actions">
             <button class="favorite">❤</button>
             <button class="contact-btn">Contact</button>
             <button class="share">Share</button>
         </div>
-        <p>{{ cpa.description }}</p>
+        <p>{{ ma.description }}</p>
         <div class="social-links">
-            {% if cpa.website %}<a href="{{ cpa.website }}" target="_blank">🌐</a>{% endif %}
-            {% if cpa.linkedin %}<a href="{{ cpa.linkedin }}" target="_blank">in</a>{% endif %}
+            {% if ma.website %}<a href="{{ ma.website }}" target="_blank">🌐</a>{% endif %}
+            {% if ma.linkedin %}<a href="{{ ma.linkedin }}" target="_blank">in</a>{% endif %}
         </div>
 
         <section>
             <h2>Supported client types</h2>
             <div class="tags">
-                {% for client_type in cpa.client_types %}
+                {% for client_type in ma.client_types %}
                 <span class="tag">{{ client_type }}</span>
                 {% endfor %}
             </div>
@@ -76,7 +76,7 @@
         <section>
             <h2>Specialties</h2>
             <div class="tags">
-                {% for tag in cpa.tags %}
+                {% for tag in ma.tags %}
                 <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
                 {% endfor %}
             </div>
@@ -85,38 +85,38 @@
         <section>
             <h2>Services</h2>
             <div class="tags">
-                {% for service in cpa.services %}
+                {% for service in ma.services %}
                 <a href="{{ url_for('service', type=service.lower().replace(' ', '-')) }}" class="tag">{{ service }}</a>
                 {% endfor %}
             </div>
         </section>
 
         <section>
-            <h2>About {{ cpa.name }}</h2>
+            <h2>About {{ ma.name }}</h2>
             <div class="about-grid">
                 <div>
                     <strong>Employees</strong>
-                    <p>{{ cpa.employees }}</p>
+                    <p>{{ ma.employees }}</p>
                 </div>
                 <div>
                     <strong>Founding year</strong>
-                    <p>{{ cpa.founding_year }}</p>
+                    <p>{{ ma.founding_year }}</p>
                 </div>
                 <div>
                     <strong>Rate range</strong>
-                    <p>{{ cpa.rate_range }}</p>
+                    <p>{{ ma.rate_range }}</p>
                 </div>
                 <div>
                     <strong>Location</strong>
-                    <p>{{ cpa.location }}</p>
+                    <p>{{ ma.location }}</p>
                 </div>
                 <div>
                     <strong>Support</strong>
-                    <p>{{ cpa.support }}</p>
+                    <p>{{ ma.support }}</p>
                 </div>
                 <div>
                     <strong>Software</strong>
-                    <p>{{ cpa.software }}</p>
+                    <p>{{ ma.software }}</p>
                 </div>
             </div>
         </section>
@@ -124,7 +124,7 @@
         <section>
             <h2>Endorsements</h2>
             <div class="endorsements">
-                {% for endorsement in cpa.endorsements %}
+                {% for endorsement in ma.endorsements %}
                 <div class="endorsement">
                     <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
                     <div class="endorsement-text">
@@ -144,9 +144,9 @@
     <div id="contactModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Contact {{ cpa.name }}</h2>
+        <h2>Contact {{ ma.name }}</h2>
             <form id="contactForm">
-              <input type="hidden" id="cpa_id" name="cpa_id" value="{{ cpa.id }}">
+              <input type="hidden" id="ma_id" name="ma_id" value="{{ ma.id }}">
 
               <label for="email">Your Email:</label>
               <input type="email" id="email" name="email" required>
