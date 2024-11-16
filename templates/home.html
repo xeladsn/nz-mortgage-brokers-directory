@@ -68,7 +68,7 @@
                 <p>{{ ma.description }}</p>
                 <div class="tags">
                     {% for tag in ma.tags[:5] %}
-                    <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
+                    <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag">{{ tag }}</a>
                     {% endfor %}
                 </div>
                 <div class="endorsement">

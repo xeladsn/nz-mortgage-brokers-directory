@@ -8,6 +8,44 @@ app = Flask(__name__)
 # Load environment variables
 load_dotenv()
 
+# Mapping dictionaries for routes
+specialty_routes = {
+    'first-time-homebuyer': 'First time homebuyer',
+    'damaged-credit': 'Damaged Credit',
+    'refinancing-and-equity-release': 'Refinancing and Equity Release',
+    'construction-new-build-loans': 'Construction/ New Build Loans',
+    'non-resident-new-to-nz': 'Non-resident/ New to NZ',
+    'high-net-worth': 'High Net-Worth',
+    'low-income-govt-supported': 'Low Income/ Gov\'t supported',
+    'commercial-property': 'Commercial Property'
+}
+
+service_routes = {
+    'kiwisaver': 'Kiwisaver',
+    'cashback': 'Cashback',
+    'self-employed': 'Self Employed',
+    'property-investor': 'Property Investor',
+    'commercial-loans': 'Commercial Loans',
+    'construction-loans': 'Construction Loans',
+    'low-deposit': '10% or less deposits',
+    'kainga-ora-loan': 'Kāinga Ora Loan',
+    'financial-advice': 'Financial Advice'
+}
+
+# Create reverse mappings for template use
+reverse_specialty_routes = {v: k for k, v in specialty_routes.items()}
+reverse_service_routes = {v: k for k, v in service_routes.items()}
+
+# Make mappings available in templates
+@app.context_processor
+def utility_processor():
+    return {
+        'specialty_routes': specialty_routes,
+        'service_routes': service_routes,
+        'reverse_specialty_routes': reverse_specialty_routes,
+        'reverse_service_routes': reverse_service_routes
+    }
+
 # Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -169,13 +207,17 @@ def ma_detail(ma_id):
 
 @app.route('/specialty/<type>')
 def specialty(type):
-    filtered_mas = [ma for ma in mas if type in [tag.replace(' ', '-').lower() for tag in ma['tags']]]
-    return render_template('home.html', mas=filtered_mas, title=f"Top {type.replace('-', ' ').title()} Expert Firms")
+    if type not in specialty_routes:
+        abort(404)
+    filtered_mas = [ma for ma in mas if specialty_routes[type] in ma['tags']]
+    return render_template('home.html', mas=filtered_mas, title=f"Top {specialty_routes[type]} Expert Firms")
 
 @app.route('/service/<type>')
 def service(type):
-    filtered_mas = [ma for ma in mas if type in [service.replace(' ', '-').lower() for service in ma['services']]]
-    return render_template('home.html', mas=filtered_mas, title=f"{type.replace('-', ' ').title()}")
+    if type not in service_routes:
+        abort(404)
+    filtered_mas = [ma for ma in mas if service_routes[type] in ma['services']]
+    return render_template('home.html', mas=filtered_mas, title=f"{service_routes[type]}")
 
 @app.route('/send_message', methods=['POST'])
 def send_message():

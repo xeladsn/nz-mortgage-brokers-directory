@@ -16,14 +16,9 @@
                     <div class="dropdown">
                         <button class="dropbtn">Specialty ▼</button>
                         <div class="dropdown-content">
-                            <a href="{{ url_for('specialty', type='first-home-buyer') }}">First Home Buyer</a>
-                            <a href="{{ url_for('specialty', type='property-investor') }}">Property Investor</a>
-                            <a href="{{ url_for('specialty', type='self-employed') }}">Self-Employed</a>
-                            <a href="{{ url_for('specialty', type='bad-credit-history') }}">Bad Credit History</a>
-                            <a href="{{ url_for('specialty', type='refinancing') }}">Refinancing</a>
-                            <a href="{{ url_for('specialty', type='new-to-nz') }}">New to NZ</a>
-                            <a href="{{ url_for('specialty', type='high-net-worth-individual') }}">High Net Worth Individual</a>
-                            <a href="{{ url_for('specialty', type='commercial-property') }}">Commercial Property</a>
+                            {% for route, name in specialty_routes.items() %}
+                            <a href="{{ url_for('specialty', type=route) }}">{{ name }}</a>
+                            {% endfor %}
                         </div>
                     </div>
                 </li>
@@ -31,14 +26,9 @@
                     <div class="dropdown">
                         <button class="dropbtn">Service ▼</button>
                         <div class="dropdown-content">
-                            <a href="{{ url_for('service', type='home-loans') }}">Home Loans</a>
-                            <a href="{{ url_for('service', type='investment-property-loans') }}">Investment Property Loans</a>
-                            <a href="{{ url_for('service', type='construction-loans') }}">Construction Loans</a>
-                            <a href="{{ url_for('service', type='refinancing') }}">Refinancing</a>
-                            <a href="{{ url_for('service', type='debt-consolidation') }}">Debt Consolidation</a>
-                            <a href="{{ url_for('service', type='kiwisaver-first-home-withdrawals') }}">KiwiSaver First Home Withdrawals</a>
-                            <a href="{{ url_for('service', type='welcome-home-loan-scheme') }}">Welcome Home Loan Scheme</a>
-                            <a href="{{ url_for('service', type='commercial-property-finance') }}">Commercial Property Finance</a>
+                            {% for route, name in service_routes.items() %}
+                            <a href="{{ url_for('service', type=route) }}">{{ name }}</a>
+                            {% endfor %}
                         </div>
                     </div>
                 </li>
@@ -77,7 +67,7 @@
             <h2>Specialties</h2>
             <div class="tags">
                 {% for tag in ma.tags %}
-                <a href="{{ url_for('specialty', type=tag.lower().replace(' ', '-')) }}" class="tag">{{ tag }}</a>
+                <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag">{{ tag }}</a>
                 {% endfor %}
             </div>
         </section>
@@ -86,7 +76,7 @@
             <h2>Services</h2>
             <div class="tags">
                 {% for service in ma.services %}
-                <a href="{{ url_for('service', type=service.lower().replace(' ', '-')) }}" class="tag">{{ service }}</a>
+                <a href="{{ url_for('service', type=reverse_service_routes[service]) }}" class="tag">{{ service }}</a>
                 {% endfor %}
             </div>
         </section>
