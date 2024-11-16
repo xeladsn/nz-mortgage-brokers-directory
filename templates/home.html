@@ -58,7 +58,13 @@
         <section class="ma-list">
             {% for ma in mas %}
             <article class="ma-card">
-                <h2><a href="{{ url_for('ma_detail', ma_id=ma.id) }}">{{ ma.name }}</a> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                <div class="ma-header">
+                    <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="ma-picture">
+                    <div class="ma-info">
+                        <h2><a href="{{ url_for('ma_detail', ma_id=ma.id) }}">{{ ma.name }}</a> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                        <p class="company">{{ ma.company }}</p>
+                    </div>
+                </div>
                 <p>{{ ma.description }}</p>
                 <div class="tags">
                     {% for tag in ma.tags[:5] %}
@@ -75,7 +81,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}">See endorsements</a>
+                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more">See endorsements</a>
             </article>
             {% endfor %}
         </section>

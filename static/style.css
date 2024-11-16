@@ -52,6 +52,103 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+header nav ul {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+header nav a:hover {
+    color: var(--color-secondary);
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: var(--color-text);
+    padding: 0;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-background-light);
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+}
+
+.dropdown-content a {
+    color: var(--color-text);
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-tag);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #3d8c40;
+}
+
 main {
     grid-area: main;
     padding: 0 2rem 2rem;
@@ -146,7 +243,10 @@ a:hover {
     background-color: var(--color-background-light);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
     z-index: 1;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
 }
 
 .dropdown-content a {
@@ -154,6 +254,7 @@ a:hover {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    transition: background-color 0.2s ease;
 }
 
 .dropdown-content a:hover {
@@ -350,4 +451,110 @@ a:hover {
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--color-border);
     margin-bottom: 1rem;
+}
+
+.advisor-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.advisor-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.advisor-header h1 {
+    margin: 0;
+}
+
+.ma-card {
+    background-color: var(--color-background-light);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.ma-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ma-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.ma-info {
+    flex: 1;
+}
+
+.ma-info h2 {
+    margin: 0;
+    margin-bottom: 0.2rem;
+}
+
+.company {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.advisor-info h1 {
+    margin-bottom: 0.2rem;
+}
+
+.advisor-info .company {
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+.nationwide {
+    background-color: var(--color-secondary);
+    color: white;
+    font-size: 0.8em;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.see-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.see-more:hover {
+    text-decoration: underline;
+}
+
+.description-section {
+    margin: 2rem 0;
+}
+
+.short-description {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.detailed-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
 }

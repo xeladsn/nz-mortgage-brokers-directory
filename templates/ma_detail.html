@@ -52,26 +52,26 @@
     </header>
 
     <main class="ma-detail">
-        <h1>{{ ma.name }} <span class="checkmark">✓</span></h1>
+        <div class="advisor-header">
+            <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="advisor-picture">
+            <div class="advisor-info">
+                <h1>{{ ma.name }}</h1>
+                <p class="company">{{ ma.company }}</p>
+            </div>
+        </div>
         <div class="actions">
-            <button class="favorite">❤</button>
             <button class="contact-btn">Contact</button>
+            <button class="favorite">❤</button>
             <button class="share">Share</button>
         </div>
-        <p>{{ ma.description }}</p>
+        <div class="description-section">
+            <p class="short-description">{{ ma.description }}</p>
+            <p class="detailed-description">{{ ma.detailed_description }}</p>
+        </div>
         <div class="social-links">
             {% if ma.website %}<a href="{{ ma.website }}" target="_blank">🌐</a>{% endif %}
             {% if ma.linkedin %}<a href="{{ ma.linkedin }}" target="_blank">in</a>{% endif %}
         </div>
-
-        <section>
-            <h2>Supported client types</h2>
-            <div class="tags">
-                {% for client_type in ma.client_types %}
-                <span class="tag">{{ client_type }}</span>
-                {% endfor %}
-            </div>
-        </section>
 
         <section>
             <h2>Specialties</h2>

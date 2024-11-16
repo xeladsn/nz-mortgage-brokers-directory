@@ -22,11 +22,14 @@ mail = Mail(app)
 mas = [
     {
         "id": 1,
-        "name": "Kiwi Home Loans",
+        "name": "Sarah Johnson",
+        "profile_picture": "profile_pics/sarah_johnson.jpg",
+        "company": "Mortgage Labs",
         "type": "First Home Specialist",
         "description": "Expert mortgage brokering services for first-time homebuyers, helping Kiwis get on the property ladder with ease.",
+        "detailed_description": "With over 15 years of experience in the mortgage industry, Sarah specializes in helping first-time homebuyers navigate the complex process of purchasing their first property. She has extensive knowledge of government assistance programs, including KiwiSaver withdrawals and First Home Grants. Sarah takes pride in providing personalized guidance, breaking down complex financial terms, and finding the best mortgage solutions tailored to each client's unique situation. Her approach combines thorough market knowledge with a genuine commitment to helping Kiwis achieve their homeownership dreams.",
         "nationwide": True,
-        "tags": ["First time homebuyer", "Low Income/ Gov’t supported"],
+        "tags": ["First time homebuyer", "Low Income/ Gov't supported"],
         "services": [
             "Kiwisaver",
             "Self Employed",
@@ -35,11 +38,11 @@ mas = [
         ],
         "endorsements": [
             {
-                "name": "Sarah Thompson",
+                "name": "Emma Thompson",
                 "date": "May 9, 2024",
-                "comment": "Kiwi Home Loans made my first home buying experience a breeze. Their knowledge of first home buyer schemes was invaluable.",
+                "comment": "Sarah made my first home buying experience a breeze. Her knowledge of first home buyer schemes was invaluable.",
                 "title": "Marketing Manager at Wellington Tech",
-                "picture": "endorsements_faces/sarah_thompson.jpg"
+                "picture": "endorsements_faces/emma_thompson.jpg"
             },
             {
                 "name": "John Smith",
@@ -52,9 +55,12 @@ mas = [
     },
     {
         "id": 2,
-        "name": "NZ Property Finance",
+        "name": "Michael Chen",
+        "profile_picture": "profile_pics/michael_chen.jpg",
+        "company": "Home Finance Direct",
         "type": "Investment Property Specialist",
         "description": "A long-term partner for property investors looking to expand their portfolio across New Zealand...",
+        "detailed_description": "Michael brings a wealth of experience in investment property financing, with a particular focus on commercial and residential property portfolios. His expertise extends to complex financing structures, including trust arrangements and company setups. Having worked with numerous successful property investors, Michael understands the importance of strategic financial planning and can provide valuable insights into market trends and investment opportunities. He maintains strong relationships with major banks and alternative lenders, ensuring his clients get the most competitive rates and terms for their investment properties.",
         "nationwide": True,
         "tags": ["Commercial Property", "High Net-Worth"],
         "services": [
@@ -65,11 +71,11 @@ mas = [
         ],
         "endorsements": [
             {
-                "name": "Michael Chen",
+                "name": "David Wilson",
                 "date": "Jun 17, 2024",
-                "comment": "NZ Property Finance has been crucial in growing my property portfolio. Their market insights and negotiation skills with lenders are top-notch.",
+                "comment": "Michael has been crucial in growing my property portfolio. His market insights and negotiation skills with lenders are top-notch.",
                 "title": "Director at Auckland Property Developments",
-                "picture": "endorsements_faces/michael_chen.jpg"
+                "picture": "endorsements_faces/david_wilson.jpg"
             },
             {
                 "name": "Jane Doe",
@@ -82,9 +88,12 @@ mas = [
     },
     {
         "id": 3,
-        "name": "Fern Financials",
+        "name": "Emily Patel",
+        "profile_picture": "profile_pics/emily_patel.jpg",
+        "company": "Property Finance Partners",
         "type": "Self-Employed Mortgage Specialist",
-        "description": "Fern Financials is the go-to mortgage broker for self-employed Kiwis and small business owners seeking home loans...",
+        "description": "Emily is the go-to mortgage broker for self-employed Kiwis and small business owners seeking home loans...",
+        "detailed_description": "Emily has carved out a niche in helping self-employed individuals and business owners secure home loans. Understanding the unique challenges faced by self-employed borrowers, she excels at presenting complex income structures to lenders in a favorable light. Her background in accounting combined with mortgage broking expertise allows her to effectively analyze business financials and identify the best lending solutions. Emily stays up-to-date with changing lending policies and maintains strong relationships with lenders who are more flexible with self-employed applications.",
         "nationwide": True,
         "tags": ["Damaged Credit", "Refinancing and Equity Release"],
         "services": [
@@ -95,11 +104,11 @@ mas = [
         ],
         "endorsements": [
             {
-                "name": "Emma Wilson",
+                "name": "Sophie Wilson",
                 "date": "May 2, 2024",
-                "comment": "As a freelancer, I thought getting a mortgage would be impossible. Fern Financials not only made it possible but made the whole process smooth and stress-free.",
+                "comment": "As a freelancer, I thought getting a mortgage would be impossible. Emily not only made it possible but made the whole process smooth and stress-free.",
                 "title": "Freelance Graphic Designer",
-                "picture": "endorsements_faces/emma_wilson.jpg"
+                "picture": "endorsements_faces/sophie_wilson.jpg"
             },
             {
                 "name": "David Brown",
@@ -112,9 +121,12 @@ mas = [
     },
     {
         "id": 4,
-        "name": "Koru Mortgages",
-        "type": "Full-Service Mortgage Brokerage",
-        "description": "We provide comprehensive mortgage solutions for all types of borrowers across New Zealand, from first-time buyers to seasoned investors.",
+        "name": "James Tait",
+        "profile_picture": "profile_pics/james_tait.jpg",
+        "company": "NZ Mortgages Ltd",
+        "type": "Full-Service Mortgage Broker",
+        "description": "James provides comprehensive mortgage solutions for all types of borrowers across New Zealand, from first-time buyers to seasoned investors.",
+        "detailed_description": "With a career spanning two decades in the New Zealand mortgage industry, James has developed expertise across all aspects of property finance. His comprehensive approach involves understanding not just the immediate lending needs but also the long-term financial goals of his clients. James is particularly skilled in handling complex cases, including non-resident applications and commercial property financing. He has built strong relationships with multiple lenders and can often secure approvals for cases that other brokers find challenging. His extensive network and deep understanding of various lending policies make him a valuable partner for any property financing need.",
         "nationwide": True,
         "tags": ["First time homebuyer", "Non-resident/ New to NZ", "Commercial Property"],
         "services": [
@@ -126,11 +138,11 @@ mas = [
         ],
         "endorsements": [
             {
-                "name": "James Tait",
+                "name": "Robert Clark",
                 "date": "Apr 10, 2024",
-                "comment": "Koru Mortgages has been my go-to for all things property finance. Their expertise across different loan types and lenders is unmatched.",
+                "comment": "James has been my go-to for all things property finance. His expertise across different loan types and lenders is unmatched.",
                 "title": "CEO of Christchurch Retail Group",
-                "picture": "endorsements_faces/james_tait.jpg"
+                "picture": "endorsements_faces/robert_clark.jpg"
             },
             {
                 "name": "Laura White",
