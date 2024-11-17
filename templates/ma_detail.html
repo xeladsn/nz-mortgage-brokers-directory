@@ -85,28 +85,24 @@
             <h2>About {{ ma.name }}</h2>
             <div class="about-grid">
                 <div>
-                    <strong>Employees</strong>
-                    <p>{{ ma.employees }}</p>
-                </div>
-                <div>
-                    <strong>Founding year</strong>
-                    <p>{{ ma.founding_year }}</p>
-                </div>
-                <div>
-                    <strong>Rate range</strong>
-                    <p>{{ ma.rate_range }}</p>
-                </div>
-                <div>
                     <strong>Location</strong>
                     <p>{{ ma.location }}</p>
                 </div>
                 <div>
-                    <strong>Support</strong>
-                    <p>{{ ma.support }}</p>
+                    <strong>Service Area</strong>
+                    <p>{% if ma.nationwide %}Nationwide{% else %}Local{% endif %}</p>
                 </div>
                 <div>
-                    <strong>Software</strong>
-                    <p>{{ ma.software }}</p>
+                    <strong>Years of Experience</strong>
+                    <p>{{ ma.years_experience }}</p>
+                </div>
+                <div>
+                    <strong>Online Capability</strong>
+                    <p>{% if ma.online_capable %}Yes{% else %}No{% endif %}</p>
+                </div>
+                <div>
+                    <strong>Supported Institutions</strong>
+                    <p>{{ ma.supported_institutions|join(', ') }}</p>
                 </div>
             </div>
         </section>

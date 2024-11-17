@@ -67,6 +67,10 @@ mas = [
         "description": "Expert mortgage brokering services for first-time homebuyers, helping Kiwis get on the property ladder with ease.",
         "detailed_description": "With over 15 years of experience in the mortgage industry, Sarah specializes in helping first-time homebuyers navigate the complex process of purchasing their first property. She has extensive knowledge of government assistance programs, including KiwiSaver withdrawals and First Home Grants. Sarah takes pride in providing personalized guidance, breaking down complex financial terms, and finding the best mortgage solutions tailored to each client's unique situation. Her approach combines thorough market knowledge with a genuine commitment to helping Kiwis achieve their homeownership dreams.",
         "nationwide": True,
+        "location": "Wellington",
+        "years_experience": 15,
+        "online_capable": True,
+        "supported_institutions": ["ANZ", "ASB", "BNZ", "Westpac", "Kiwibank"],
         "tags": ["First time homebuyer", "Low Income/ Gov't supported"],
         "services": [
             "Kiwisaver",
@@ -100,6 +104,10 @@ mas = [
         "description": "A long-term partner for property investors looking to expand their portfolio across New Zealand...",
         "detailed_description": "Michael brings a wealth of experience in investment property financing, with a particular focus on commercial and residential property portfolios. His expertise extends to complex financing structures, including trust arrangements and company setups. Having worked with numerous successful property investors, Michael understands the importance of strategic financial planning and can provide valuable insights into market trends and investment opportunities. He maintains strong relationships with major banks and alternative lenders, ensuring his clients get the most competitive rates and terms for their investment properties.",
         "nationwide": True,
+        "location": "Auckland",
+        "years_experience": 12,
+        "online_capable": True,
+        "supported_institutions": ["ANZ", "ASB", "BNZ", "Westpac", "SBS Bank", "Liberty Financial"],
         "tags": ["Commercial Property", "High Net-Worth"],
         "services": [
             "Cashback",
@@ -133,6 +141,10 @@ mas = [
         "description": "Emily is the go-to mortgage broker for self-employed Kiwis and small business owners seeking home loans...",
         "detailed_description": "Emily has carved out a niche in helping self-employed individuals and business owners secure home loans. Understanding the unique challenges faced by self-employed borrowers, she excels at presenting complex income structures to lenders in a favorable light. Her background in accounting combined with mortgage broking expertise allows her to effectively analyze business financials and identify the best lending solutions. Emily stays up-to-date with changing lending policies and maintains strong relationships with lenders who are more flexible with self-employed applications.",
         "nationwide": True,
+        "location": "Christchurch",
+        "years_experience": 8,
+        "online_capable": True,
+        "supported_institutions": ["ANZ", "ASB", "BNZ", "Westpac", "Co-operative Bank", "NZCU"],
         "tags": ["Damaged Credit", "Refinancing and Equity Release"],
         "services": [
             "Kiwisaver",
@@ -166,6 +178,10 @@ mas = [
         "description": "James provides comprehensive mortgage solutions for all types of borrowers across New Zealand, from first-time buyers to seasoned investors.",
         "detailed_description": "With a career spanning two decades in the New Zealand mortgage industry, James has developed expertise across all aspects of property finance. His comprehensive approach involves understanding not just the immediate lending needs but also the long-term financial goals of his clients. James is particularly skilled in handling complex cases, including non-resident applications and commercial property financing. He has built strong relationships with multiple lenders and can often secure approvals for cases that other brokers find challenging. His extensive network and deep understanding of various lending policies make him a valuable partner for any property financing need.",
         "nationwide": True,
+        "location": "Hamilton",
+        "years_experience": 20,
+        "online_capable": True,
+        "supported_institutions": ["ANZ", "ASB", "BNZ", "Westpac", "Kiwibank", "TSB", "Resimac", "Pepper Money"],
         "tags": ["First time homebuyer", "Non-resident/ New to NZ", "Commercial Property"],
         "services": [
             "Cashback",

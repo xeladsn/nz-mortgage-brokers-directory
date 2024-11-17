@@ -16,7 +16,7 @@
 
     /* Font variables */
     --font-heading: 'Arial'; 'Roboto', sans-serif; 'Playfair Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', serif;
-    --font-body: 'Arial'; 'Roboto', sans-serif; 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-body: 'Arial'; 'Roboto'; sans-serif; 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 body {
