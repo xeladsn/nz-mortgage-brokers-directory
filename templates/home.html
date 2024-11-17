@@ -73,7 +73,10 @@
                 </div>
                 <div class="endorsement">
                     {% for endorsement in ma.endorsements[:1] %}
-                    <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
+                    <div class="endorsement-picture-container">
+                        <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
+                        <div class="linkedin-watermark">in</div>
+                    </div>
                     <div class="endorsement-text">
                         <p>"{{ endorsement.comment }}"</p>
                         <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
