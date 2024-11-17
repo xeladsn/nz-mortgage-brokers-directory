@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
 
 :root {
     /* Color variables */
@@ -15,15 +15,19 @@
     --color-link-hover: #004999;
 
     /* Font variables */
-    --font-heading: 'Arial'; 'Roboto', sans-serif; 'Playfair Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', serif;
-    --font-body: 'Arial'; 'Roboto'; sans-serif; 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 body {
     font-family: var(--font-body);
+    font-weight: 400;
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     display: grid;
     grid-template-columns: 1fr 300px;
     grid-template-areas:
@@ -37,6 +41,18 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--color-primary);
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
 }
 
 header {
@@ -244,7 +260,8 @@ nav ul li {
     padding: 0.2rem 0.5rem;
     margin-right: 0.5rem;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .endorsement {
@@ -259,8 +276,22 @@ nav ul li {
     flex: 1;
 }
 
-.endorsement-text p {
-    margin: 0.3rem 0;
+.endorsement-text p:first-child {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.endorsement-text p:nth-child(2) {
+    font-weight: 500;
+    color: var(--color-primary);
+    margin: 0.5rem 0 0.25rem;
+}
+
+.endorsement-text p:last-child {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin: 0;
 }
 
 .endorsement-picture {
@@ -271,19 +302,19 @@ nav ul li {
     margin-right: 1rem;
 }
 
+.endorsement-picture-container {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+}
+
 .ma-card .endorsement-picture {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
-}
-
-.endorsement-picture-container {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    margin-right: 1rem;
 }
 
 .ma-card .endorsement-picture-container {
@@ -371,6 +402,7 @@ a:hover {
     color: var(--color-text-light);
     line-height: 1.8;
     font-size: 1.05rem;
+    font-weight: 400;
     margin: 0;
     padding: 0 1rem;
     position: relative;
@@ -459,7 +491,7 @@ a:hover {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.9rem;
     text-decoration: none;
     color: var(--color-text);
     display: inline-block;
@@ -624,28 +656,16 @@ a:hover {
 }
 
 .company {
+    font-weight: 500;
     color: var(--color-text-light);
-    font-size: 0.9rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
+    margin-top: 0.25rem;
 }
 
-.advisor-info h1 {
-    margin-bottom: 0.2rem;
-}
-
-.advisor-info .company {
-    margin-top: 0;
-    font-size: 1.1rem;
-}
-
-.nationwide {
-    background-color: var(--color-secondary);
-    color: white;
-    font-size: 0.8em;
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 10px;
+.ma-card h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
 }
 
 .ma-card h2 a {
