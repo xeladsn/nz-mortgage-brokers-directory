@@ -91,7 +91,7 @@ header nav a:hover {
 .dropbtn {
     background-color: transparent;
     color: var(--color-text);
-    padding: 0;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
     border: none;
     cursor: pointer;
@@ -99,18 +99,51 @@ header nav a:hover {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.dropbtn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdown::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    top: 100%;
+    left: 0;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: var(--color-background-light);
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    z-index: 1;
-    padding: 0.5rem 0;
+    z-index: 1000;
+    padding: 0.5rem;
     margin-top: 0.5rem;
+    border: 1px solid var(--color-border);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-background-light);
+    border-left: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
 }
 
 .dropdown-content a {
@@ -118,15 +151,26 @@ header nav a:hover {
     padding: 0.75rem 1rem;
     text-decoration: none;
     display: block;
-    transition: background-color 0.2s ease;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    white-space: nowrap;
 }
 
 .dropdown-content a:hover {
     background-color: var(--color-tag);
+    color: var(--color-secondary);
+    transform: translateX(5px);
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown:hover .dropbtn {
+    color: var(--color-secondary);
 }
 
 .header-actions {
@@ -248,52 +292,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    background-color: var(--color-background);
-    color: var(--color-text);
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: var(--color-background-light);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 1;
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-}
-
-.dropdown-content a {
-    color: var(--color-text);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: var(--color-tag);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: var(--color-tag);
-}
-
 .nationwide {
     background-color: var(--color-secondary);
     color: var(--color-background-light);
@@ -301,6 +299,38 @@ a:hover {
     border-radius: 3px;
     font-size: 0.8em;
     margin-left: 5px;
+}
+
+.see-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.see-more:hover {
+    text-decoration: underline;
+}
+
+.description-section {
+    margin: 2rem 0;
+}
+
+.short-description {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.detailed-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
 }
 
 .ma-detail {
@@ -550,36 +580,4 @@ a:hover {
     padding: 2px 5px;
     border-radius: 3px;
     margin-left: 10px;
-}
-
-.see-more {
-    display: inline-block;
-    margin-top: 10px;
-    color: var(--color-link);
-    text-decoration: none;
-}
-
-.see-more:hover {
-    text-decoration: underline;
-}
-
-.description-section {
-    margin: 2rem 0;
-}
-
-.short-description {
-    font-size: 1.1rem;
-    color: #333;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.detailed-description {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.8;
-    padding: 1.5rem;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
 }
