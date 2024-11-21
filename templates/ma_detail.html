@@ -7,39 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
-                <li><a href="#">About Us</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">Specialty ▼</button>
-                        <div class="dropdown-content">
-                            {% for route, name in specialty_routes.items() %}
-                            <a href="{{ url_for('specialty', type=route) }}">{{ name }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">Service ▼</button>
-                        <div class="dropdown-content">
-                            {% for route, name in service_routes.items() %}
-                            <a href="{{ url_for('service', type=route) }}">{{ name }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#">Most Recommended</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <a href="#" class="button">Find MAs</a>
-            <a href="#" class="button">Log in</a>
-        </div>
-    </header>
+    {% include 'components/header.html' %}
 
     <main class="ma-detail">
         <div class="advisor-header">
@@ -141,20 +109,47 @@
             <form id="contactForm">
               <input type="hidden" id="ma_id" name="ma_id" value="{{ ma.id }}">
 
-              <label for="email">Your Email:</label>
+              <label for="loan_purpose">What are you looking for?</label>
+              <select id="loan_purpose" name="loan_purpose">
+                <option value="refinance">Refinance</option>
+                <option value="purchase">Purchase</option>
+                <option value="construction">Construction Loan</option>
+                <option value="other">Other</option>
+              </select>
+
+              <label for="household_income">What's your household income?</label>
+              <input type="text" id="household_income" name="household_income">
+
+              <label for="purchase_location">Where are you looking to buy?</label>
+              <input type="text" id="purchase_location" name="purchase_location">
+
+              <label for="deposit_amount">How much deposit do you have saved up?</label>
+              <input type="text" id="deposit_amount" name="deposit_amount">
+
+              <label>Where is the deposit coming from? (select all that apply)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="deposit_source" value="kiwisaver"> KiwiSaver
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="deposit_source" value="house_sale"> House Sale
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="deposit_source" value="savings"> Savings
+                </label>
+              </div>
+
+              <label for="additional_info">Anything else you'd like to share?</label>
+              <textarea id="additional_info" name="additional_info" placeholder="KiwiSaver funds, grants, timeframe, other debts, what you are hoping to get out of our conversation"></textarea>
+
+              <label for="name">Your Name: <span class="required" title="This field is mandatory">*</span></label>
+              <input type="text" id="name" name="name" required>
+
+              <label for="email">Your Email: <span class="required" title="This field is mandatory">*</span></label>
               <input type="email" id="email" name="email" required>
 
-              <label for="first_name">First Name:</label>
-              <input type="text" id="first_name" name="first_name" required>
-
-              <label for="last_name">Last Name:</label>
-              <input type="text" id="last_name" name="last_name" required>
-
-              <label for="profession">Profession:</label>
-              <input type="text" id="profession" name="profession" required>
-
-              <label for="household_income">Household Tax Income:</label>
-              <input type="text" id="household_income" name="household_income" required>
+              <label for="phone">Phone Number: <span class="required" title="This field is mandatory">*</span></label>
+              <input type="tel" id="phone" name="phone" required>
 
               <button type="submit">Send Message</button>
             </form>

@@ -563,32 +563,62 @@ a:hover {
 #contactForm {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 #contactForm label {
-    margin-top: 10px;
-    color: var(--color-text);
+    font-weight: 500;
 }
 
 #contactForm input,
+#contactForm select,
 #contactForm textarea {
-    margin-top: 5px;
-    padding: 5px;
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#contactForm textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: -10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal !important;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin: 0;
+}
+
+#contactForm select {
+    background-color: white;
 }
 
 #contactForm button {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
-    background-color: var(--color-secondary);
+    background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: 500;
 }
 
 #contactForm button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 .endorsement {
@@ -735,4 +765,18 @@ a:hover {
 
 .ma-card .see-more:hover::after {
     transform: translateX(4px);
+}
+
+.required {
+    color: #e32;
+    font-weight: bold;
+    cursor: help;
+}
+
+/* Form styling */
+#contactForm label.required::after {
+    content: '*';
+    color: #e32;
+    font-weight: bold;
+    margin-left: 2px;
 }

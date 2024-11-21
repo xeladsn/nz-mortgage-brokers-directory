@@ -1,0 +1,32 @@
+<header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
+            <li><a href="#">About Us</a></li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">Specialty ▼</button>
+                    <div class="dropdown-content">
+                        {% for route, name in specialty_routes.items() %}
+                        <a href="{{ url_for('specialty', type=route) }}">{{ name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">Service ▼</button>
+                    <div class="dropdown-content">
+                        {% for route, name in service_routes.items() %}
+                        <a href="{{ url_for('service', type=route) }}">{{ name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="auth-buttons">
+        <a href="#" class="button">Find MAs</a>
+        <a href="#" class="button">Log in</a>
+    </div>
+</header>

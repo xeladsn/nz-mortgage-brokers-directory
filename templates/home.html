@@ -7,50 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
-                <li><a href="#">About Us</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">Specialty ▼</button>
-                        <div class="dropdown-content">
-                            <a href="{{ url_for('specialty', type='first-time-homebuyer') }}">First time homebuyer</a>
-                            <a href="{{ url_for('specialty', type='damaged-credit') }}">Damaged Credit</a>
-                            <a href="{{ url_for('specialty', type='refinancing-and-equity-release') }}">Refinancing and Equity Release</a>
-                            <a href="{{ url_for('specialty', type='construction-new-build-loans') }}">Construction/ New Build Loans</a>
-                            <a href="{{ url_for('specialty', type='non-resident-new-to-nz') }}">Non-resident/ New to NZ</a>
-                            <a href="{{ url_for('specialty', type='high-net-worth') }}">High Net-Worth</a>
-                            <a href="{{ url_for('specialty', type='low-income-govt-supported') }}">Low Income / Government supported</a>
-                            <a href="{{ url_for('specialty', type='commercial-property') }}">Commercial Property</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">Service ▼</button>
-                        <div class="dropdown-content">
-                            <a href="{{ url_for('service', type='kiwisaver') }}">Kiwisaver</a>
-                            <a href="{{ url_for('service', type='cashback') }}">Cashback</a>
-                            <a href="{{ url_for('service', type='self-employed') }}">Self Employed</a>
-                            <a href="{{ url_for('service', type='property-investor') }}">Property Investor</a>
-                            <a href="{{ url_for('service', type='commercial-loans') }}">Commercial Loans</a>
-                            <a href="{{ url_for('service', type='construction-loans') }}">Construction Loans</a>
-                            <a href="{{ url_for('service', type='low-deposit') }}">10% or less deposits</a>
-                            <a href="{{ url_for('service', type='kainga-ora-loan') }}">Kāinga Ora Loan</a>
-                            <a href="{{ url_for('service', type='financial-advice') }}">Financial Advice</a>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="#">Most Recommended</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <a href="#" class="button">Find MAs</a>
-            <a href="#" class="button">Log in</a>
-        </div>
-    </header>
+    {% include 'components/header.html' %}
 
     <main>
         <h1>{{ title }}</h1>

@@ -239,11 +239,29 @@ def service(type):
 def send_message():
     data = request.json
     ma_id = int(data.get('ma_id'))
+    name = data.get('name')
     email = data.get('email')
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
-    profession = data.get('profession')
-    household_income = data.get('household_income')
+    phone = data.get('phone')
+    loan_purpose = data.get('loan_purpose', '')
+    household_income = data.get('household_income', '')
+    purchase_location = data.get('purchase_location', '')
+    deposit_amount = data.get('deposit_amount', '')
+    deposit_sources = data.get('deposit_sources', [])
+    additional_info = data.get('additional_info', '')
+
+    # Validate required fields
+    required_fields = {
+        'name': name,
+        'email': email,
+        'phone': phone
+    }
+    
+    missing_fields = [field for field, value in required_fields.items() if not value]
+    if missing_fields:
+        return jsonify({
+            'success': False, 
+            'message': f'The following fields are required: {", ".join(missing_fields)}'
+        }), 400
 
     # Find the MA by ID
     ma = next((ma for ma in mas if ma['id'] == ma_id), None)
@@ -253,13 +271,24 @@ def send_message():
     # Construct the email message
     subject = f"New request for {ma['name']}"
     body = f"""
-    You have a new contact request from {first_name} {last_name}.
+    You have a new contact request from {name}.
 
+    Contact Information:
+    Name: {name}
     Email: {email}
-    Profession: {profession}
-    Household Tax Income: {household_income}
+    Phone: {phone}
+
+    Loan Details:
+    Purpose: {loan_purpose if loan_purpose else 'Not provided'}
+    Household Income: {household_income if household_income else 'Not provided'}
+    Purchase Location: {purchase_location if purchase_location else 'Not provided'}
+    Deposit Amount: {deposit_amount if deposit_amount else 'Not provided'}
+    Deposit Sources: {', '.join(deposit_sources) if deposit_sources else 'Not provided'}
+
+    Additional Information:
+    {additional_info if additional_info else 'None provided'}
     
-    Please forward this message to the appropriate person at {ma['name']} for follow-up.
+    Please forward this message to {ma['name']} or the appropriate person for follow-up.
     """
 
     try:
