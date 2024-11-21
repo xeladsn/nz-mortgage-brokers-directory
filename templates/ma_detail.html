@@ -101,6 +101,10 @@
                     <p>{% if ma.online_capable %}Yes{% else %}No{% endif %}</p>
                 </div>
                 <div>
+                    <strong>Profile</strong>
+                    <p><a href="https://www.linkedin.com/in/{{ ma.name|lower|replace(' ', '-') }}" target="_blank" class="profile-link">linkedin.com/in/{{ ma.name|lower|replace(' ', '-') }}</a></p>
+                </div>
+                <div>
                     <strong>Supported Institutions</strong>
                     <p>{{ ma.supported_institutions|join(', ') }}</p>
                 </div>

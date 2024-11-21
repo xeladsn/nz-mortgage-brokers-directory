@@ -485,6 +485,20 @@ a:hover {
     margin-bottom: 5px;
 }
 
+.about-grid a.profile-link {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 4px 12px;
+    background-color: var(--color-tag);
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    display: inline-block;
+}
+
+.about-grid a.profile-link:hover {
+    background-color: var(--color-tag-hover);
+}
+
 .tag, .service {
     background-color: var(--color-tag);
     padding: 0.2rem 0.5rem;

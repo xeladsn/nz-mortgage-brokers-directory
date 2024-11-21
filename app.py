@@ -16,7 +16,7 @@ specialty_routes = {
     'construction-new-build-loans': 'Construction/ New Build Loans',
     'non-resident-new-to-nz': 'Non-resident/ New to NZ',
     'high-net-worth': 'High Net-Worth',
-    'low-income-govt-supported': 'Low Income/ Gov\'t supported',
+    'low-income-govt-supported': 'Low Income / Government supported',
     'commercial-property': 'Commercial Property'
 }
 
@@ -71,7 +71,7 @@ mas = [
         "years_experience": 15,
         "online_capable": True,
         "supported_institutions": ["ANZ", "ASB", "BNZ", "Westpac", "Kiwibank"],
-        "tags": ["First time homebuyer", "Low Income/ Gov't supported"],
+        "tags": ["First time homebuyer", "Low Income / Government supported"],
         "services": [
             "Kiwisaver",
             "Self Employed",
