@@ -1,0 +1,227 @@
+<!-- Quiz Modal -->
+<div id="quizModal" class="modal">
+    <div class="modal-content">
+        <span class="close-icon" onclick="closeQuizModal()">&times;</span>
+        <!-- Page 1: Email -->
+        <div class="quiz-page" id="emailPage">
+            <h2>What's your email?</h2>
+            <div class="input-group">
+                <input type="email" id="userEmail" placeholder="Enter your email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="button-group">
+                <button onclick="validateAndNext('emailPage', 'namesPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%"></div>
+                </div>
+                <div class="progress-text">Step 1 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 2: Names -->
+        <div class="quiz-page" id="namesPage" style="display: none;">
+            <h2>What's your name?</h2>
+            <div class="input-group">
+                <input type="text" id="firstName" placeholder="First name" required>
+                <div class="error-message" id="firstNameError"></div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="lastName" placeholder="Last name" required>
+                <div class="error-message" id="lastNameError"></div>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('namesPage', 'emailPage')" class="prev-btn">Previous</button>
+                <button onclick="validateAndNext('namesPage', 'situationPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+                <div class="progress-text">Step 2 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 3: Homebuying Situation -->
+        <div class="quiz-page" id="situationPage" style="display: none;">
+            <h2>What best describes your homebuying situation?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="situation" value="first-time"> First-time homebuyer</label>
+                <label><input type="radio" name="situation" value="next-home"> Buying my next home</label>
+                <label><input type="radio" name="situation" value="investment" onclick="showInvestmentType()"> Purchasing an investment property</label>
+                <label><input type="radio" name="situation" value="refinancing"> Refinancing my current home</label>
+                <label><input type="radio" name="situation" value="new-construction"> Looking to build or buy a new construction home</label>
+            </div>
+            <div id="investmentType" style="display: none;">
+                <h3>Is it for commercial or private property?</h3>
+                <div class="radio-group">
+                    <label><input type="radio" name="investmentType" value="commercial"> Commercial</label>
+                    <label><input type="radio" name="investmentType" value="private"> Private</label>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('situationPage', 'namesPage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('situationPage', 'incomePage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 30%"></div>
+                </div>
+                <div class="progress-text">Step 3 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 4: Income Situation -->
+        <div class="quiz-page" id="incomePage" style="display: none;">
+            <h2>Income Situation (select all that apply)</h2>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="income" value="full-time"> Full-Time Salaried Employee</label>
+                <label><input type="checkbox" name="income" value="part-time"> Part-Time or Contract Worker</label>
+                <label><input type="checkbox" name="income" value="self-employed"> Self-Employed or Freelancer</label>
+                <label><input type="checkbox" name="income" value="business-owner"> Business Owner or Entrepreneur</label>
+                <label><input type="checkbox" name="income" value="retired"> Retired or Living on Fixed Income</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('incomePage', 'situationPage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('incomePage', 'ownershipPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 40%"></div>
+                </div>
+                <div class="progress-text">Step 4 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 5: Ownership Arrangement -->
+        <div class="quiz-page" id="ownershipPage" style="display: none;">
+            <h2>Ownership Arrangement</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="ownership" value="single"> Single buyer</label>
+                <label><input type="radio" name="ownership" value="joint"> Joint purchase with a partner</label>
+                <label><input type="radio" name="ownership" value="co-buying"> Co-buying with friends or family</label>
+                <label><input type="radio" name="ownership" value="group"> Group or Investment Trust Purchase</label>
+                <label><input type="radio" name="ownership" value="unsure"> Not sure yet</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('ownershipPage', 'incomePage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('ownershipPage', 'financialProfilePage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 50%"></div>
+                </div>
+                <div class="progress-text">Step 5 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 6: Financial Profile -->
+        <div class="quiz-page" id="financialProfilePage" style="display: none;">
+            <h2>How would you describe your financial profile?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="profile" value="modest"> Modest income, saving for a first home</label>
+                <label><input type="radio" name="profile" value="strong"> Strong credit, stable income</label>
+                <label><input type="radio" name="profile" value="challenged"> Credit challenged or recovering from past issues</label>
+                <label><input type="radio" name="profile" value="high"> High income with complex finances</label>
+                <label><input type="radio" name="profile" value="govt"> Government-supported or in need of housing assistance programs</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('financialProfilePage', 'ownershipPage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('financialProfilePage', 'mortgageProductPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 60%"></div>
+                </div>
+                <div class="progress-text">Step 6 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 7: Mortgage Product -->
+        <div class="quiz-page" id="mortgageProductPage" style="display: none;">
+            <h2>Are you interested in any specific type of mortgage product?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="product" value="standard"> Standard home loan</label>
+                <label><input type="radio" name="product" value="low-deposit"> Low-deposit mortgage</label>
+                <label><input type="radio" name="product" value="interest-only"> Interest-only mortgage</label>
+                <label><input type="radio" name="product" value="offset"> Offset mortgage</label>
+                <label><input type="radio" name="product" value="unsure"> Not sure – I need guidance</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('mortgageProductPage', 'financialProfilePage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('mortgageProductPage', 'downPaymentPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 70%"></div>
+                </div>
+                <div class="progress-text">Step 7 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 8: Down Payment -->
+        <div class="quiz-page" id="downPaymentPage" style="display: none;">
+            <h2>Do you have a down payment saved, and if so, approximately how much?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="downPayment" value="20+"> 20% or more of the home's value</label>
+                <label><input type="radio" name="downPayment" value="10-20"> 10-20% of the home's value</label>
+                <label><input type="radio" name="downPayment" value="<10"> Less than 10% – I might need low-deposit options</label>
+                <label><input type="radio" name="downPayment" value="none"> I haven't saved a down payment yet</label>
+                <label><input type="radio" name="downPayment" value="unsure"> I'm unsure</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('downPaymentPage', 'mortgageProductPage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('downPaymentPage', 'priorityPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 80%"></div>
+                </div>
+                <div class="progress-text">Step 8 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 9: Priority -->
+        <div class="quiz-page" id="priorityPage" style="display: none;">
+            <h2>What's your biggest priority when choosing a mortgage advisor?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="priority" value="rate"> Securing the lowest interest rate</label>
+                <label><input type="radio" name="priority" value="unique"> Finding someone who can help me with my unique financial situation</label>
+                <label><input type="radio" name="priority" value="clear"> Working with an advisor who can explain the process clearly</label>
+                <label><input type="radio" name="priority" value="reviews"> Finding someone with great reviews and proven success</label>
+                <label><input type="radio" name="priority" value="options"> Access to a wide range of mortgage products and options</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('priorityPage', 'downPaymentPage')" class="prev-btn">Previous</button>
+                <button onclick="nextPage('priorityPage', 'residencyPage')" class="next-btn">Next</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 90%"></div>
+                </div>
+                <div class="progress-text">Step 9 of 10</div>
+            </div>
+        </div>
+
+        <!-- Page 10: Residency -->
+        <div class="quiz-page" id="residencyPage" style="display: none;">
+            <h2>Are you currently residing in New Zealand?</h2>
+            <div class="radio-group">
+                <label><input type="radio" name="residency" value="yes"> Yes</label>
+                <label><input type="radio" name="residency" value="returning"> No, but I'm a Kiwi returning home</label>
+                <label><input type="radio" name="residency" value="overseas"> No, I'm an overseas buyer</label>
+            </div>
+            <div class="button-group">
+                <button onclick="previousPage('residencyPage', 'priorityPage')" class="prev-btn">Previous</button>
+                <button onclick="submitQuiz()" class="submit-btn">Send</button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+                <div class="progress-text">Step 10 of 10</div>
+            </div>
+        </div>
+    </div>
+</div>

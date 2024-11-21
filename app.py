@@ -304,5 +304,58 @@ def send_message():
         print(f"Error sending email: {str(e)}")
         return jsonify({'success': False, 'message': 'Failed to send message'}), 500
 
+@app.route('/send_quiz_message', methods=['POST'])
+def send_quiz_message():
+    try:
+        data = request.get_json()
+        
+        # Create email message
+        msg = Message(
+            'New Quiz Submission',
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[os.getenv('RECIPIENT_EMAIL')]
+        )
+        
+        # Format the email body
+        msg.body = f'''
+New quiz submission received:
+
+Contact Information:
+------------------
+Email: {data.get('email')}
+First Name: {data.get('firstName')}
+Last Name: {data.get('lastName')}
+
+Homebuying Situation:
+------------------
+Situation: {data.get('situation')}
+Investment Type: {data.get('investmentType') if data.get('situation') == 'investment' else 'N/A'}
+
+Income Details:
+------------------
+Income Sources: {', '.join(data.get('income', []))}
+
+Ownership Details:
+------------------
+Arrangement: {data.get('ownership')}
+
+Financial Profile:
+------------------
+Profile: {data.get('profile')}
+Mortgage Product Interest: {data.get('product')}
+Down Payment Status: {data.get('downPayment')}
+
+Priorities and Preferences:
+------------------
+Main Priority: {data.get('priority')}
+Residency Status: {data.get('residency')}
+'''
+        
+        mail.send(msg)
+        return jsonify({'success': True})
+    except Exception as e:
+        print(f"Error sending email: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)})
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)

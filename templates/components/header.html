@@ -26,7 +26,349 @@
         </ul>
     </nav>
     <div class="auth-buttons">
-        <a href="#" class="button">Find MAs</a>
+        <a href="#" class="button" onclick="openQuizModal()">Find MAs</a>
         <a href="#" class="button">Log in</a>
     </div>
 </header>
+
+{% include 'components/quiz_modal.html' %}
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.quiz-page {
+    text-align: left;
+    padding: 20px 0;
+}
+
+.quiz-page h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.quiz-page h3 {
+    margin: 15px 0;
+    color: #555;
+    font-size: 1.2em;
+}
+
+.quiz-page input[type="email"],
+.quiz-page input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+    min-height: 20px;
+}
+
+.quiz-page input.error {
+    border-color: #f44336;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.radio-group label,
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-group label:hover,
+.checkbox-group label:hover {
+    background-color: #f5f5f5;
+}
+
+.radio-group input[type="radio"],
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.next-btn,
+.prev-btn,
+.submit-btn {
+    padding: 12px 24px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.next-btn,
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.next-btn:hover,
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.prev-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.prev-btn:hover {
+    background-color: #da190b;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.progress-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.close-icon {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-icon:hover {
+    color: #333;
+    background-color: #f0f0f0;
+}
+</style>
+
+<script>
+function openQuizModal() {
+    document.getElementById('quizModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuizModal() {
+    document.getElementById('quizModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function nextPage(currentId, nextId) {
+    document.getElementById(currentId).style.display = 'none';
+    document.getElementById(nextId).style.display = 'block';
+}
+
+function previousPage(currentId, prevId) {
+    document.getElementById(currentId).style.display = 'none';
+    document.getElementById(prevId).style.display = 'block';
+}
+
+function showInvestmentType() {
+    const investmentType = document.getElementById('investmentType');
+    const situationRadios = document.getElementsByName('situation');
+    const isInvestment = Array.from(situationRadios).find(radio => radio.value === 'investment').checked;
+    investmentType.style.display = isInvestment ? 'block' : 'none';
+}
+
+function getSelectedValues(name, isCheckbox = false) {
+    const elements = document.getElementsByName(name);
+    if (isCheckbox) {
+        return Array.from(elements)
+            .filter(el => el.checked)
+            .map(el => el.value);
+    }
+    const selected = Array.from(elements).find(el => el.checked);
+    return selected ? selected.value : '';
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function showError(inputId, errorId, message) {
+    const input = document.getElementById(inputId);
+    const error = document.getElementById(errorId);
+    if (input && error) {
+        input.classList.add('error');
+        error.textContent = message;
+    }
+    return false;
+}
+
+function clearError(inputId, errorId) {
+    const input = document.getElementById(inputId);
+    const error = document.getElementById(errorId);
+    if (input && error) {
+        input.classList.remove('error');
+        error.textContent = '';
+    }
+}
+
+function validateAndNext(currentId, nextId) {
+    // Clear any existing errors
+    if (currentId === 'emailPage') {
+        clearError('userEmail', 'emailError');
+        const email = document.getElementById('userEmail').value.trim();
+        
+        if (!email) {
+            return showError('userEmail', 'emailError', 'Email is required');
+        }
+        if (!validateEmail(email)) {
+            return showError('userEmail', 'emailError', 'Please enter a valid email address');
+        }
+        nextPage(currentId, nextId);
+    }
+    else if (currentId === 'namesPage') {
+        clearError('firstName', 'firstNameError');
+        clearError('lastName', 'lastNameError');
+        
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        
+        let isValid = true;
+        
+        if (!firstName) {
+            showError('firstName', 'firstNameError', 'First name is required');
+            isValid = false;
+        }
+        if (!lastName) {
+            showError('lastName', 'lastNameError', 'Last name is required');
+            isValid = false;
+        }
+        
+        if (isValid) {
+            nextPage(currentId, nextId);
+        }
+    }
+    else {
+        // For other pages, just proceed
+        nextPage(currentId, nextId);
+    }
+}
+
+function submitQuiz() {
+    const email = document.getElementById('userEmail').value.trim();
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+
+    if (!email || !firstName || !lastName) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    const formData = {
+        email,
+        firstName,
+        lastName,
+        situation: getSelectedValues('situation'),
+        investmentType: getSelectedValues('investmentType'),
+        income: getSelectedValues('income', true),
+        ownership: getSelectedValues('ownership'),
+        profile: getSelectedValues('profile'),
+        product: getSelectedValues('product'),
+        downPayment: getSelectedValues('downPayment'),
+        priority: getSelectedValues('priority'),
+        residency: getSelectedValues('residency')
+    };
+
+    fetch('/send_quiz_message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Thank you! We will get back to you soon.');
+            closeQuizModal();
+        } else {
+            alert('There was an error sending your message. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your message. Please try again.');
+    });
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target == document.getElementById('quizModal')) {
+        closeQuizModal();
+    }
+}
+</script>
