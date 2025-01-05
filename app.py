@@ -209,6 +209,126 @@ mas = [
     }
 ]
 
+# Sample blog posts
+blog_posts = [
+    {
+        "id": 1,
+        "title": "Understanding Mortgage Rates in 2025",
+        "date": "2025-01-05",
+        "summary": "A comprehensive guide to current mortgage rates and what they mean for homebuyers.",
+        "content": """Understanding Mortgage Rates in 2025
+
+Understanding mortgage rates is crucial for anyone looking to buy a home or refinance their existing mortgage. In 2025, several factors are influencing mortgage rates in New Zealand.
+
+Economic Conditions:
+
+• Current market trends
+• Inflation rates
+• Employment rates
+
+Reserve Bank Policies:
+
+• Official Cash Rate (OCR)
+• Monetary policy decisions
+• Banking regulations
+
+Global Financial Markets:
+
+• International economic conditions
+• Foreign investment trends
+• Currency exchange rates
+
+What This Means for Homebuyers:
+
+• Fixed vs. floating rates considerations
+• How to get the best rates
+• Timing your mortgage application
+
+Contact a mortgage broker today to understand how these factors affect your specific situation.""",
+        "author": "Sarah Johnson",
+        "image": "blog/mortgage-rates.jpg"
+    },
+    {
+        "id": 2,
+        "title": "First-Time Home Buyer's Guide",
+        "date": "2024-12-28",
+        "summary": "Everything you need to know about buying your first home in New Zealand.",
+        "content": """First-Time Home Buyer's Guide
+
+Buying your first home is an exciting but complex journey. Here's what you need to know:
+
+Getting Started:
+
+• Assess your financial situation
+• Save for a deposit
+• Understand your borrowing capacity
+
+Key Steps in the Process:
+
+• Getting pre-approval
+• House hunting
+• Making an offer
+• Legal requirements
+• Settlement process
+
+Government Assistance:
+
+• First Home Grant
+• First Home Loan
+• KiwiSaver withdrawal
+
+Tips for Success:
+
+• Work with experienced professionals
+• Do thorough research
+• Don't rush the process
+
+Remember, a mortgage broker can guide you through this journey and help you find the best loan options.""",
+        "author": "Michael Chen",
+        "image": "blog/first-time-buyer.jpg"
+    },
+    {
+        "id": 3,
+        "title": "How to Choose the Right Mortgage Broker",
+        "date": "2024-12-20",
+        "summary": "Tips for selecting the best mortgage broker for your needs.",
+        "content": """How to Choose the Right Mortgage Broker
+
+Choosing the right mortgage broker is crucial for your home buying success. Here's how to make the best choice:
+
+What to Look For:
+
+• Experience and Qualifications
+• Range of lender relationships
+• Client testimonials
+• Communication style
+
+Questions to Ask:
+
+• How many lenders do you work with?
+• What are your fees?
+• What's your process?
+• How do you handle challenges?
+
+Red Flags to Watch For:
+
+• Pressure tactics
+• Lack of transparency
+• Poor communication
+• Limited lender options
+
+Making Your Decision:
+
+• Compare multiple brokers
+• Check references
+• Trust your instincts
+
+Take time to find the right broker who understands your needs and can guide you effectively.""",
+        "author": "Emily Patel",
+        "image": "blog/policy-changes.jpg"
+    }
+]
+
 @app.route('/')
 def home():
     return render_template('home.html', mas=mas, title="Find the best mortgage brokers in NZ")
@@ -234,6 +354,17 @@ def service(type):
         abort(404)
     filtered_mas = [ma for ma in mas if service_routes[type] in ma['services']]
     return render_template('home.html', mas=filtered_mas, title=f"{service_routes[type]}")
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', title='Blog', posts=blog_posts)
+
+@app.route('/blog/<int:post_id>')
+def blog_post(post_id):
+    post = next((post for post in blog_posts if post['id'] == post_id), None)
+    if post is None:
+        abort(404)
+    return render_template('blog_post.html', title=post['title'], post=post)
 
 @app.route('/send_message', methods=['POST'])
 def send_message():

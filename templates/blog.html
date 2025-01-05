@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'components/header.html' %}
+
+    <main class="blog-main">
+        <h1>{{ title }}</h1>
+        
+        <section class="blog-grid">
+            {% for post in posts %}
+            <article class="blog-card">
+                <div class="blog-image-container">
+                    <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" class="blog-image" onerror="this.style.display='none';">
+                    <div class="blog-image-placeholder" style="display: none;">{{ post.title }}</div>
+                </div>
+                <div class="blog-content">
+                    <h2>{{ post.title }}</h2>
+                    <div class="blog-meta">
+                        <span class="blog-author">{{ post.author }}</span>
+                        <span class="blog-date">{{ post.date }}</span>
+                    </div>
+                    <p class="blog-summary">{{ post.summary }}</p>
+                    <a href="{{ url_for('blog_post', post_id=post.id) }}" class="read-more">Read More</a>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>
