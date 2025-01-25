@@ -1,7 +1,10 @@
-from flask import Flask, render_template, abort, request, jsonify
+from flask import Flask, render_template, abort, request, jsonify, redirect, url_for, session, flash
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
+from functools import wraps
+from werkzeug.utils import secure_filename
+import uuid
 
 app = Flask(__name__)
 
@@ -55,6 +58,157 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 
 mail = Mail(app)
+
+# Admin credentials (in production, use hashed passwords and store securely)
+ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+
+# Secret key for session
+app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+
+# Admin login required decorator
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'admin_logged_in' not in session:
+            flash('Please log in first.', 'error')
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['admin_logged_in'] = True
+            flash('Successfully logged in!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid credentials!', 'error')
+    
+    return render_template('admin/login.html')
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    flash('Successfully logged out!', 'success')
+    return redirect(url_for('admin_login'))
+
+@app.route('/admin/dashboard')
+@admin_required
+def admin_dashboard():
+    return render_template('admin/dashboard.html', blog_posts=blog_posts)
+
+@app.route('/admin/blog/create', methods=['GET', 'POST'])
+@admin_required
+def admin_blog_create():
+    if request.method == 'POST':
+        # Handle image upload
+        image_path = None
+        if 'image' in request.files:
+            file = request.files['image']
+            image_path = save_uploaded_file(file)
+            if not image_path and file.filename:
+                flash('Invalid file type. Allowed types: png, jpg, jpeg, gif', 'error')
+                return redirect(request.url)
+        
+        new_post = {
+            'id': len(blog_posts) + 1,
+            'title': request.form['title'],
+            'content': request.form['content'],
+            'author': request.form['author'],
+            'date': request.form['date'],
+            'image': image_path if image_path else None
+        }
+        blog_posts.append(new_post)
+        flash('Blog post created successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+    return render_template('admin/blog_form.html')
+
+@app.route('/admin/blog/edit/<int:post_id>', methods=['GET', 'POST'])
+@admin_required
+def admin_blog_edit(post_id):
+    post = next((post for post in blog_posts if post['id'] == post_id), None)
+    if not post:
+        abort(404)
+    
+    if request.method == 'POST':
+        # Handle image upload
+        if 'image' in request.files:
+            file = request.files['image']
+            if file.filename:  # New file was selected
+                # Delete old image if it exists
+                if post['image']:
+                    old_image_path = os.path.join(app.root_path, 'static', post['image'])
+                    try:
+                        if os.path.exists(old_image_path):
+                            os.remove(old_image_path)
+                    except Exception as e:
+                        print(f"Error deleting old image: {e}")
+                
+                # Save new image
+                image_path = save_uploaded_file(file)
+                if image_path:
+                    post['image'] = image_path
+                else:
+                    flash('Invalid file type. Allowed types: png, jpg, jpeg, gif', 'error')
+                    return redirect(request.url)
+        
+        post['title'] = request.form['title']
+        post['content'] = request.form['content']
+        post['author'] = request.form['author']
+        post['date'] = request.form['date']
+        
+        flash('Blog post updated successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+    
+    return render_template('admin/blog_form.html', post=post)
+
+@app.route('/admin/blog/delete/<int:post_id>', methods=['POST'])
+@admin_required
+def admin_blog_delete(post_id):
+    global blog_posts
+    post = next((post for post in blog_posts if post['id'] == post_id), None)
+    
+    if post and post['image']:
+        # Delete associated image file
+        image_path = os.path.join(app.root_path, 'static', post['image'])
+        try:
+            if os.path.exists(image_path):
+                os.remove(image_path)
+        except Exception as e:
+            print(f"Error deleting image: {e}")
+    
+    blog_posts = [p for p in blog_posts if p['id'] != post_id]
+    flash('Blog post deleted successfully!', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+# File upload configuration
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'blog_images')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def save_uploaded_file(file):
+    if file and allowed_file(file.filename):
+        # Generate unique filename
+        filename = secure_filename(file.filename)
+        ext = filename.rsplit('.', 1)[1].lower()
+        new_filename = f"{uuid.uuid4().hex}.{ext}"
+        
+        # Save file
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
+        file.save(file_path)
+        
+        # Return relative path for database storage
+        return f"blog_images/{new_filename}"
+    return None
 
 # Mock data for MAs
 mas = [
@@ -246,7 +400,7 @@ What This Means for Homebuyers:
 
 Contact a mortgage broker today to understand how these factors affect your specific situation.""",
         "author": "Sarah Johnson",
-        "image": "blog/mortgage-rates.jpg"
+        "image": "blog_images/mortgage-rates.jpg"
     },
     {
         "id": 2,
@@ -285,7 +439,7 @@ Tips for Success:
 
 Remember, a mortgage broker can guide you through this journey and help you find the best loan options.""",
         "author": "Michael Chen",
-        "image": "blog/first-time-buyer.jpg"
+        "image": "blog_images/first-time-buyer.jpg"
     },
     {
         "id": 3,
@@ -296,36 +450,31 @@ Remember, a mortgage broker can guide you through this journey and help you find
 
 Choosing the right mortgage broker is crucial for your home buying success. Here's how to make the best choice:
 
-What to Look For:
+Key Considerations:
 
-• Experience and Qualifications
-• Range of lender relationships
-• Client testimonials
+• Experience and qualifications
+• Range of lenders
 • Communication style
+• Client testimonials
+• Specializations
 
 Questions to Ask:
 
 • How many lenders do you work with?
 • What are your fees?
-• What's your process?
-• How do you handle challenges?
+• Can you explain your process?
+• What's your experience with similar cases?
 
 Red Flags to Watch For:
 
 • Pressure tactics
-• Lack of transparency
+• Unrealistic promises
 • Poor communication
-• Limited lender options
+• Lack of transparency
 
-Making Your Decision:
-
-• Compare multiple brokers
-• Check references
-• Trust your instincts
-
-Take time to find the right broker who understands your needs and can guide you effectively.""",
+Remember to do your research and trust your instincts when choosing a mortgage broker.""",
         "author": "Emily Patel",
-        "image": "blog/policy-changes.jpg"
+        "image": "blog_images/policy-changes.jpg"
     }
 ]
 
