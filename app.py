@@ -213,12 +213,12 @@ mas = [
 blog_posts = [
     {
         "id": 1,
-        "title": "Understanding Mortgage Rates in 2025",
-        "date": "2025-01-05",
+        "title": "Understanding Mortgage Rates in 2024",
+        "date": "2024-01-05",
         "summary": "A comprehensive guide to current mortgage rates and what they mean for homebuyers.",
-        "content": """Understanding Mortgage Rates in 2025
+        "content": """Understanding Mortgage Rates in 2024
 
-Understanding mortgage rates is crucial for anyone looking to buy a home or refinance their existing mortgage. In 2025, several factors are influencing mortgage rates in New Zealand.
+Understanding mortgage rates is crucial for anyone looking to buy a home or refinance their existing mortgage. In 2024, several factors are influencing mortgage rates in New Zealand.
 
 Economic Conditions:
 

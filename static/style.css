@@ -76,21 +76,24 @@ header nav {
 
 header nav ul {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-header nav a {
+header nav a, .dropbtn {
     color: var(--color-text);
     text-decoration: none;
+    font-family: var(--font-heading);
     font-weight: 500;
     transition: color 0.2s ease;
+    padding: 0.5rem;
+    display: inline-block;
 }
 
-header nav a:hover {
+header nav a:hover, .dropbtn:hover {
     color: var(--color-secondary);
 }
 
@@ -108,7 +111,6 @@ header nav a:hover {
 
 .dropbtn {
     background-color: transparent;
-    color: var(--color-text);
     padding: 0.5rem 1rem;
     font-size: 1rem;
     border: none;
@@ -119,10 +121,6 @@ header nav a:hover {
     gap: 0.5rem;
     border-radius: 4px;
     transition: all 0.2s ease;
-}
-
-.dropbtn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .dropdown::after {
