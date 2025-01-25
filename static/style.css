@@ -95,8 +95,10 @@ header nav a:hover {
 }
 
 .logo {
-    height: 40px;
+    border-radius: 50%;  
     width: auto;
+    height: 40px;
+    object-fit: cover;
 }
 
 .dropdown {
