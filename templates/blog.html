@@ -1,36 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    {% include 'components/header.html' %}
+{% extends "base.html" %}
 
-    <main class="blog-main">
-        <h1>{{ title }}</h1>
-        
-        <section class="blog-grid">
-            {% for post in posts %}
-            <article class="blog-card">
-                <div class="blog-image-container">
-                    <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" class="blog-image" onerror="this.style.display='none';">
-                    <div class="blog-image-placeholder" style="display: none;">{{ post.title }}</div>
+{% block title %}Mortgage Broker Insights & News{% endblock %}
+
+{% block meta_description %}Expert insights, tips, and news about mortgage broking in New Zealand. Stay informed about the latest trends in home loans and mortgage advice.{% endblock %}
+
+{% block extra_structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "NZ Mortgage Brokers Blog",
+    "description": "Expert insights and news about mortgage broking in New Zealand",
+    "url": "{{ request.url }}",
+    "blogPosts": [
+        {% for post in posts %}
+        {
+            "@type": "BlogPosting",
+            "headline": "{{ post.title }}",
+            "author": {
+                "@type": "Person",
+                "name": "{{ post.author }}"
+            },
+            "datePublished": "{{ post.date }}",
+            "url": "{{ url_for('blog_post', post_id=post.id, _external=True) }}",
+            "description": "{{ post.summary }}"
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<main class="blog-main">
+    <header class="blog-header">
+        <h1>Mortgage Broker Insights & News</h1>
+        <p class="lead">Stay informed about the latest trends in home loans and mortgage advice in New Zealand</p>
+    </header>
+    
+    <section class="blog-grid">
+        {% for post in posts %}
+        <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+            <div class="blog-image-container">
+                {% if post.image %}
+                <img itemprop="image" src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" class="blog-image" onerror="this.style.display='none';">
+                {% endif %}
+                <div class="blog-image-placeholder" style="display: none;">{{ post.title }}</div>
+            </div>
+            <div class="blog-content">
+                <h2 itemprop="headline"><a href="{{ url_for('blog_post', post_id=post.id) }}" itemprop="url">{{ post.title }}</a></h2>
+                <div class="blog-meta">
+                    <span class="blog-author" itemprop="author">{{ post.author }}</span>
+                    <time class="blog-date" itemprop="datePublished" datetime="{{ post.date }}">{{ post.date }}</time>
                 </div>
-                <div class="blog-content">
-                    <h2>{{ post.title }}</h2>
-                    <div class="blog-meta">
-                        <span class="blog-author">{{ post.author }}</span>
-                        <span class="blog-date">{{ post.date }}</span>
-                    </div>
-                    <p class="blog-summary">{{ post.summary }}</p>
-                    <a href="{{ url_for('blog_post', post_id=post.id) }}" class="read-more">Read More</a>
-                </div>
-            </article>
-            {% endfor %}
-        </section>
-    </main>
-</body>
-</html>
+                <p class="blog-summary" itemprop="description">{{ post.summary }}</p>
+                <a href="{{ url_for('blog_post', post_id=post.id) }}" class="read-more" aria-label="Read more about {{ post.title }}">Read More</a>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

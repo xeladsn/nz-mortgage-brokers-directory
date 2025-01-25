@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /blog/*
+Disallow: /admin/*
+Disallow: /static/admin/*
+
+# Sitemap
+Sitemap: /sitemap.xml

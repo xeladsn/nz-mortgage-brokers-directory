@@ -1,15 +1,22 @@
-from flask import Flask, render_template, abort, request, jsonify, redirect, url_for, session, flash
+from flask import Flask, render_template, abort, request, jsonify, redirect, url_for, session, flash, send_from_directory, Response
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
 from functools import wraps
 from werkzeug.utils import secure_filename
 import uuid
+from datetime import datetime
+import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
 
 # Load environment variables
 load_dotenv()
+
+# Configure server name based on environment
+if os.environ.get('FLASK_ENV') == 'production':
+    app.config['SERVER_NAME'] = 'kiwihomebuyers.com'
+    app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 # Mapping dictionaries for routes
 specialty_routes = {
@@ -209,6 +216,70 @@ def save_uploaded_file(file):
         # Return relative path for database storage
         return f"blog_images/{new_filename}"
     return None
+
+# Routes for robots.txt and sitemap.xml
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('static', 'robots.txt')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    root = ET.Element('urlset')
+    root.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+    
+    # Determine the base URL
+    if os.environ.get('FLASK_ENV') == 'production':
+        base_url = 'https://kiwihomebuyers.com'
+    else:
+        base_url = request.url_root.rstrip('/')
+    
+    # Add static pages
+    pages = [
+        {'loc': f"{base_url}/", 'priority': '1.0'},
+        {'loc': f"{base_url}/blog", 'priority': '0.8'},
+    ]
+    
+    # Add specialty pages
+    for route in specialty_routes.keys():
+        pages.append({
+            'loc': f"{base_url}/specialty/{route}",
+            'priority': '0.7'
+        })
+    
+    # Add MA detail pages
+    for ma in mas:
+        pages.append({
+            'loc': f"{base_url}/ma/{ma['id']}",
+            'priority': '0.6'
+        })
+    
+    # Add blog posts
+    for post in blog_posts:
+        pages.append({
+            'loc': f"{base_url}/blog/{post['id']}",
+            'lastmod': post.get('date', datetime.now().strftime('%Y-%m-%d')),
+            'priority': '0.6'
+        })
+    
+    # Create XML structure
+    for page in pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = page['loc']
+        
+        if 'lastmod' in page:
+            lastmod = ET.SubElement(url, 'lastmod')
+            lastmod.text = page['lastmod']
+        
+        if 'priority' in page:
+            priority = ET.SubElement(url, 'priority')
+            priority.text = page['priority']
+    
+    # Create the XML string
+    xml_str = ET.tostring(root, encoding='unicode', method='xml')
+    xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    
+    return Response(xml_declaration + xml_str, mimetype='application/xml')
 
 # Mock data for MAs
 mas = [
