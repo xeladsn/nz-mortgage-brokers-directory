@@ -431,6 +431,63 @@ mas = [
                 "picture": "endorsements_faces/laura_white.jpg"
             }
         ]
+    },
+    {
+        "id": 5,
+        "name": "Rustam Nomozov",
+        "profile_picture": "profile_pics/rustam_nomozov.png",
+        "company": "Mortgage Labs",
+        "type": "Family Finance Doctor",
+        "description": "Focused on treating client's challenge like they're my own, finding solutions that others overlook.",
+        "detailed_description": "With over a decade in finance, I work on guiding first-time buyers, business owners, and investors on their property journeys. Whether you're searching for your next home or expanding your property portfolio, my experience in property trading and development—coupled with active involvement in the Wellington Property Investment Association—ensures a smooth and rewarding experience. I'm passionate about real estate and ready to help you unlock new opportunities.",
+        "nationwide": True,
+        "location": "Wellington",
+        "years_experience": 12,
+        "online_capable": True,
+        "supported_institutions": ["BNZ", "ANZ"],
+        "tags": ["First time homebuyer", "Refinancing and Equity Release", "Commercial Property"],
+        "services": [
+            "Property Investor",
+            "Financial Advice",
+            "Self Employed"
+        ],
+        "endorsements": [
+            {
+                "name": "Client Testimonial",
+                "date": "July 15, 2024",
+                "comment": "Thanks to Rustam, we were able to restructure our mortgage allowing us to stay in our dream home and come up with the funds for our second home",
+                "title": "Satisfied Client",
+                "picture": "endorsements_faces/emma_wilson.jpg"
+            },
+            {
+                "name": "David Wilson",
+                "date": "June 22, 2024",
+                "comment": "Rustam helped us navigate the complex process of buying our first investment property. His knowledge of the market was invaluable.",
+                "title": "Property Investor",
+                "picture": "endorsements_faces/david_wilson.jpg"
+            },
+            {
+                "name": "Sarah Thompson",
+                "date": "May 30, 2024",
+                "comment": "As a business owner, I thought getting a mortgage would be difficult. Rustam made it simple and found me a great rate.",
+                "title": "Small Business Owner",
+                "picture": "endorsements_faces/sarah_thompson.jpg"
+            },
+            {
+                "name": "Robert Clark",
+                "date": "April 15, 2024",
+                "comment": "Rustam's expertise in commercial property financing helped us expand our business locations. Highly recommended!",
+                "title": "CEO of Wellington Retail",
+                "picture": "endorsements_faces/robert_clark.jpg"
+            },
+            {
+                "name": "Jane Doe",
+                "date": "March 8, 2024",
+                "comment": "First-time homebuyer here. Rustam explained everything clearly and found us options we didn't know existed.",
+                "title": "Marketing Professional",
+                "picture": "endorsements_faces/jane_doe.jpg"
+            }
+        ]
     }
 ]
 
