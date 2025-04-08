@@ -438,7 +438,7 @@ mas = [
         "profile_picture": "profile_pics/rustam_nomozov.png",
         "company": "Mortgage Labs",
         "type": "Family Finance Doctor",
-        "description": "Focused on treating client's challenge like they're my own, finding solutions that others overlook.",
+        "description": "\"Family Finance Doctor\" - Focused on treating client's challenge like they're my own, finding solutions that others overlook.",
         "detailed_description": "With over a decade in finance, I work on guiding first-time buyers, business owners, and investors on their property journeys. Whether you're searching for your next home or expanding your property portfolio, my experience in property trading and development—coupled with active involvement in the Wellington Property Investment Association—ensures a smooth and rewarding experience. I'm passionate about real estate and ready to help you unlock new opportunities.",
         "nationwide": True,
         "location": "Wellington",
