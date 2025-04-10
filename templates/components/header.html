@@ -29,7 +29,25 @@
                             <label class="filter-option">
                                 <input type="checkbox" name="specialty" value="{{ route }}">
                                 <div class="filter-icon">
-                                    <i class="fas fa-tag"></i>
+                                    {% if route == 'first-time-homebuyer' %}
+                                        <i class="fas fa-home"></i>
+                                    {% elif route == 'damaged-credit' %}
+                                        <i class="fas fa-credit-card"></i>
+                                    {% elif route == 'refinancing-and-equity-release' %}
+                                        <i class="fas fa-exchange-alt"></i>
+                                    {% elif route == 'construction-new-build-loans' %}
+                                        <i class="fas fa-hard-hat"></i>
+                                    {% elif route == 'non-resident-new-to-nz' %}
+                                        <i class="fas fa-plane-arrival"></i>
+                                    {% elif route == 'high-net-worth' %}
+                                        <i class="fas fa-gem"></i>
+                                    {% elif route == 'low-income-govt-supported' %}
+                                        <i class="fas fa-hands-helping"></i>
+                                    {% elif route == 'commercial-property' %}
+                                        <i class="fas fa-building"></i>
+                                    {% else %}
+                                        <i class="fas fa-tag"></i>
+                                    {% endif %}
                                 </div>
                                 <span>{{ name }}</span>
                             </label>
@@ -54,7 +72,27 @@
                             <label class="filter-option">
                                 <input type="checkbox" name="service" value="{{ route }}">
                                 <div class="filter-icon">
-                                    <i class="fas fa-cog"></i>
+                                    {% if route == 'kiwisaver' %}
+                                        <i class="fas fa-piggy-bank"></i>
+                                    {% elif route == 'cashback' %}
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    {% elif route == 'self-employed' %}
+                                        <i class="fas fa-briefcase"></i>
+                                    {% elif route == 'property-investor' %}
+                                        <i class="fas fa-chart-line"></i>
+                                    {% elif route == 'commercial-loans' %}
+                                        <i class="fas fa-store"></i>
+                                    {% elif route == 'construction-loans' %}
+                                        <i class="fas fa-hammer"></i>
+                                    {% elif route == 'low-deposit' %}
+                                        <i class="fas fa-percentage"></i>
+                                    {% elif route == 'kainga-ora-loan' %}
+                                        <i class="fas fa-house-user"></i>
+                                    {% elif route == 'financial-advice' %}
+                                        <i class="fas fa-comments-dollar"></i>
+                                    {% else %}
+                                        <i class="fas fa-cog"></i>
+                                    {% endif %}
                                 </div>
                                 <span>{{ name }}</span>
                             </label>
