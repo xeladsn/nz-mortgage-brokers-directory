@@ -7,6 +7,10 @@
                 <li><a href="{{ url_for('blog') }}">Blog</a></li>
             </ul>
         </nav>
+        <div class="site-title">
+            <h1>KiwiHomeBuyers</h1>
+            <h2>Find Your Perfect Mortgage Advisor in NZ</h2>
+        </div>
         <div class="auth-buttons">
             <a href="#" class="button" onclick="openQuizModal()">Find Mortgage Advisors</a>
         </div>
@@ -78,8 +82,8 @@ header {
 }
 
 .top-header-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     width: 100%;
 }
@@ -87,6 +91,7 @@ header {
 nav {
     display: flex;
     align-items: center;
+    justify-self: start;
 }
 
 nav ul {
@@ -114,6 +119,7 @@ nav ul li a {
 .auth-buttons {
     display: flex;
     gap: 10px;
+    justify-self: end;
 }
 
 .button {
@@ -129,6 +135,29 @@ nav ul li a {
 
 .button:hover {
     background-color: #45a049;
+}
+
+.site-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    justify-self: center;
+    text-align: center;
+}
+
+.site-title h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+}
+
+.site-title h2 {
+    font-size: 14px;
+    margin: 0;
+    color: #666;
+    font-weight: 400;
 }
 
 .filters-row {
