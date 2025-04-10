@@ -1,40 +1,264 @@
 <header>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="{{ url_for('blog') }}">Blog</a></li>
-            <li>
-                <div class="dropdown">
-                    <button class="dropbtn">Specialty ▼</button>
-                    <div class="dropdown-content">
-                        {% for route, name in specialty_routes.items() %}
-                        <a href="{{ url_for('specialty', type=route) }}">{{ name }}</a>
-                        {% endfor %}
+    <div class="top-header-row">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="{{ url_for('blog') }}">Blog</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <a href="#" class="button" onclick="openQuizModal()">Find Mortgage Advisors</a>
+        </div>
+    </div>
+    <div class="filters-row">
+        <div class="filter-categories">
+            <div class="filter-category">
+                <span class="filter-label">Specialty:</span>
+                <div class="filter-scroll-wrapper">
+                    <button class="scroll-button specialty-scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="filter-scroll-container">
+                        <div class="filter-options">
+                            {% for route, name in specialty_routes.items() %}
+                            <label class="filter-option">
+                                <input type="checkbox" name="specialty" value="{{ route }}">
+                                <div class="filter-icon">
+                                    <i class="fas fa-tag"></i>
+                                </div>
+                                <span>{{ name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
                     </div>
+                    <button class="scroll-button specialty-scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            </li>
-            <li>
-                <div class="dropdown">
-                    <button class="dropbtn">Service ▼</button>
-                    <div class="dropdown-content">
-                        {% for route, name in service_routes.items() %}
-                        <a href="{{ url_for('service', type=route) }}">{{ name }}</a>
-                        {% endfor %}
+            </div>
+            
+            <div class="filter-category">
+                <span class="filter-label">Service:</span>
+                <div class="filter-scroll-wrapper">
+                    <button class="scroll-button service-scroll-left" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="filter-scroll-container">
+                        <div class="filter-options">
+                            {% for route, name in service_routes.items() %}
+                            <label class="filter-option">
+                                <input type="checkbox" name="service" value="{{ route }}">
+                                <div class="filter-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <span>{{ name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
                     </div>
+                    <button class="scroll-button service-scroll-right" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-            </li>
-        </ul>
-    </nav>
-    <div class="auth-buttons">
-        <a href="#" class="button" onclick="openQuizModal()">Find MAs</a>
-        <a href="#" class="button">Log in</a>
+            </div>
+        </div>
     </div>
 </header>
 
 {% include 'components/quiz_modal.html' %}
 
 <style>
+header {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.top-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.logo {
+    height: 40px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.filters-row {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.filter-category {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-scroll-container {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    width: 100%;
+    padding: 5px 40px; /* Add padding for the scroll buttons and a bit of top padding */
+}
+
+.filter-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.filter-options {
+    display: flex;
+    gap: 15px;
+}
+
+.filter-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-primary);
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    white-space: nowrap;
+    background-color: var(--color-background);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.filter-option:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.filter-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.filter-option input[type="checkbox"]:checked + .filter-icon + span,
+.filter-option input[type="checkbox"]:checked + span {
+    color: var(--color-secondary);
+    font-weight: 500;
+}
+
+.filter-option:has(input[type="checkbox"]:checked) {
+    border-color: var(--color-secondary);
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.filter-icon {
+    margin-right: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.scroll-button {
+    position: relative;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    z-index: 5;
+    transition: all 0.2s;
+}
+
+.scroll-button:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.specialty-scroll-left, .service-scroll-left {
+    margin-right: 10px;
+}
+
+.specialty-scroll-right, .service-scroll-right {
+    margin-left: 10px;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -215,6 +439,18 @@
 </style>
 
 <script>
+// Initialize route mappings
+var specialty_routes_js = {};
+var service_routes_js = {};
+
+{% for route, name in specialty_routes.items() %}
+specialty_routes_js["{{ route }}"] = "{{ name }}";
+{% endfor %}
+
+{% for route, name in service_routes.items() %}
+service_routes_js["{{ route }}"] = "{{ name }}";
+{% endfor %}
+
 function openQuizModal() {
     document.getElementById('quizModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -236,10 +472,10 @@ function previousPage(currentId, prevId) {
 }
 
 function showInvestmentType() {
-    const investmentType = document.getElementById('investmentType');
-    const situationRadios = document.getElementsByName('situation');
-    const isInvestment = Array.from(situationRadios).find(radio => radio.value === 'investment').checked;
-    investmentType.style.display = isInvestment ? 'block' : 'none';
+    const situation = document.querySelector('input[name="situation"]:checked').value;
+    if (situation === 'investment') {
+        document.getElementById('investmentTypeSection').style.display = 'block';
+    }
 }
 
 function getSelectedValues(name, isCheckbox = false) {
@@ -365,6 +601,202 @@ function submitQuiz() {
         alert('There was an error sending your message. Please try again.');
     });
 }
+
+// Add Font Awesome for icons
+document.addEventListener('DOMContentLoaded', function() {
+    const fontAwesome = document.createElement('link');
+    fontAwesome.rel = 'stylesheet';
+    fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+    document.head.appendChild(fontAwesome);
+    
+    // Initialize CSS variables
+    document.documentElement.style.setProperty('--color-background', '#ffffff');
+    document.documentElement.style.setProperty('--color-background-light', '#f7f7f7');
+    document.documentElement.style.setProperty('--color-primary', '#333333');
+    document.documentElement.style.setProperty('--color-secondary', '#4CAF50');
+    document.documentElement.style.setProperty('--color-border', '#dddddd');
+    document.documentElement.style.setProperty('--color-tag-hover', '#f0f0f0');
+});
+
+// Horizontal scrolling for filters
+document.addEventListener('DOMContentLoaded', function() {
+    // Get specialty filter elements
+    const specialtyContainer = document.querySelector('.filter-category:nth-child(1) .filter-scroll-container');
+    const specialtyLeftBtn = document.querySelector('.specialty-scroll-left');
+    const specialtyRightBtn = document.querySelector('.specialty-scroll-right');
+    
+    // Get service filter elements
+    const serviceContainer = document.querySelector('.filter-category:nth-child(2) .filter-scroll-container');
+    const serviceLeftBtn = document.querySelector('.service-scroll-left');
+    const serviceRightBtn = document.querySelector('.service-scroll-right');
+    
+    // Function to check if scrolling is needed
+    function checkScrollable(container) {
+        return container && container.scrollWidth > container.clientWidth;
+    }
+    
+    // Function to check if scrolled to start
+    function isScrolledToStart(container) {
+        return container && container.scrollLeft <= 10;
+    }
+    
+    // Function to check if scrolled to end
+    function isScrolledToEnd(container) {
+        return container && (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10);
+    }
+    
+    // Function to update button states
+    function updateButtonStates(container, leftBtn, rightBtn) {
+        if (!container || !leftBtn || !rightBtn) return;
+        
+        // Check if scrolling is needed
+        const scrollable = checkScrollable(container);
+        
+        // Update left button visibility
+        leftBtn.style.display = isScrolledToStart(container) ? 'none' : 'flex';
+        
+        // Update right button visibility
+        rightBtn.style.display = (!scrollable || isScrolledToEnd(container)) ? 'none' : 'flex';
+    }
+    
+    // Scroll left when left button is clicked
+    specialtyLeftBtn.addEventListener('click', function() {
+        if (this.style.display !== 'none') {
+            specialtyContainer.scrollBy({ left: -200, behavior: 'smooth' });
+        }
+    });
+    
+    // Scroll right when right button is clicked
+    specialtyRightBtn.addEventListener('click', function() {
+        if (this.style.display !== 'none') {
+            const scrollDistance = specialtyContainer.scrollWidth - specialtyContainer.clientWidth - specialtyContainer.scrollLeft;
+            if (scrollDistance < 250) {
+                // If we're close to the end, scroll all the way
+                specialtyContainer.scrollTo({ left: specialtyContainer.scrollWidth, behavior: 'smooth' });
+            } else {
+                // Otherwise scroll by a fixed amount
+                specialtyContainer.scrollBy({ left: 200, behavior: 'smooth' });
+            }
+        }
+    });
+    
+    // Scroll left when left button is clicked
+    serviceLeftBtn.addEventListener('click', function() {
+        if (this.style.display !== 'none') {
+            serviceContainer.scrollBy({ left: -200, behavior: 'smooth' });
+        }
+    });
+    
+    // Scroll right when right button is clicked
+    serviceRightBtn.addEventListener('click', function() {
+        if (this.style.display !== 'none') {
+            const scrollDistance = serviceContainer.scrollWidth - serviceContainer.clientWidth - serviceContainer.scrollLeft;
+            if (scrollDistance < 250) {
+                // If we're close to the end, scroll all the way
+                serviceContainer.scrollTo({ left: serviceContainer.scrollWidth, behavior: 'smooth' });
+            } else {
+                // Otherwise scroll by a fixed amount
+                serviceContainer.scrollBy({ left: 200, behavior: 'smooth' });
+            }
+        }
+    });
+    
+    // Update button states on scroll
+    specialtyContainer.addEventListener('scroll', function() {
+        updateButtonStates(specialtyContainer, specialtyLeftBtn, specialtyRightBtn);
+    });
+    
+    serviceContainer.addEventListener('scroll', function() {
+        updateButtonStates(serviceContainer, serviceLeftBtn, serviceRightBtn);
+    });
+    
+    // Update button states on window resize
+    window.addEventListener('resize', function() {
+        updateButtonStates(specialtyContainer, specialtyLeftBtn, specialtyRightBtn);
+        updateButtonStates(serviceContainer, serviceLeftBtn, serviceRightBtn);
+    });
+    
+    // Initial update
+    updateButtonStates(specialtyContainer, specialtyLeftBtn, specialtyRightBtn);
+    updateButtonStates(serviceContainer, serviceLeftBtn, serviceRightBtn);
+    
+    // Update periodically for the first few seconds
+    let checkCount = 0;
+    const checkInterval = setInterval(function() {
+        updateButtonStates(specialtyContainer, specialtyLeftBtn, specialtyRightBtn);
+        updateButtonStates(serviceContainer, serviceLeftBtn, serviceRightBtn);
+        checkCount++;
+        if (checkCount >= 10) {
+            clearInterval(checkInterval);
+        }
+    }, 500);
+});
+
+// Handle filter selections
+function applyFilters() {
+    const specialtyFilters = Array.from(document.querySelectorAll('input[name="specialty"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    const serviceFilters = Array.from(document.querySelectorAll('input[name="service"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    // Client-side filtering without page reload
+    const maCards = document.querySelectorAll('.ma-card');
+    
+    // If no filters are selected, show all cards
+    if (specialtyFilters.length === 0 && serviceFilters.length === 0) {
+        maCards.forEach(card => {
+            card.style.display = 'block';
+        });
+        return;
+    }
+    
+    // Convert route keys to display names for comparison
+    const specialtyNames = specialtyFilters.map(route => specialty_routes_js[route]).filter(Boolean);
+    const serviceNames = serviceFilters.map(route => service_routes_js[route]).filter(Boolean);
+    
+    // Filter each card based on selected criteria
+    maCards.forEach(card => {
+        // Get tags and services from the card
+        const cardTags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.trim());
+        
+        // For services, we need to extract them from data attributes we'll add
+        let cardServices = [];
+        try {
+            const servicesAttr = card.getAttribute('data-services');
+            if (servicesAttr) {
+                cardServices = JSON.parse(servicesAttr);
+            }
+        } catch (e) {
+            console.error('Error parsing services JSON:', e);
+        }
+        
+        // Check if card matches the filters
+        let matchesSpecialty = specialtyFilters.length === 0 || 
+            cardTags.some(tag => specialtyNames.includes(tag));
+        
+        let matchesService = serviceFilters.length === 0 || 
+            cardServices.some(service => serviceNames.includes(service));
+        
+        // Show or hide the card based on filter match
+        if (matchesSpecialty && matchesService) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Add event listeners to checkboxes
+document.addEventListener('DOMContentLoaded', function() {
+    const filterCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+    
+    // Apply initial filtering
+    applyFilters();
+});
 
 // Close modal when clicking outside
 window.onclick = function(event) {

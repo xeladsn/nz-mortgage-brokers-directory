@@ -56,6 +56,38 @@ def utility_processor():
         'reverse_service_routes': reverse_service_routes
     }
 
+# Home route with filtering
+@app.route('/')
+def home():
+    # Get filter parameters
+    specialty_filters = request.args.get('specialties', '').split(',') if request.args.get('specialties') else []
+    service_filters = request.args.get('services', '').split(',') if request.args.get('services') else []
+    
+    # Filter MAs based on selected criteria
+    filtered_mas = mas
+    
+    if specialty_filters and specialty_filters[0]:  # Check if the list is not empty and not just an empty string
+        # Convert route keys to display names for comparison with MA tags
+        specialty_names = [specialty_routes[route] for route in specialty_filters if route in specialty_routes]
+        if specialty_names:
+            filtered_mas = [ma for ma in filtered_mas if any(tag in specialty_names for tag in ma['tags'])]
+    
+    if service_filters and service_filters[0]:  # Check if the list is not empty and not just an empty string
+        # Convert route keys to display names for comparison with MA services
+        service_names = [service_routes[route] for route in service_filters if route in service_routes]
+        if service_names:
+            filtered_mas = [ma for ma in filtered_mas if any(service in service_names for service in ma['services'])]
+    
+    # Make sure each MA has a services list for client-side filtering
+    for ma in filtered_mas:
+        if 'services' not in ma:
+            ma['services'] = []
+    
+    return render_template('home.html', 
+                          mas=filtered_mas, 
+                          specialty_routes=specialty_routes, 
+                          service_routes=service_routes)
+
 # Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -605,10 +637,6 @@ Remember to do your research and trust your instincts when choosing a mortgage b
         "image": "blog_images/policy-changes.jpg"
     }
 ]
-
-@app.route('/')
-def home():
-    return render_template('home.html', mas=mas, title="Find the best mortgage brokers in NZ")
 
 @app.route('/ma/<int:ma_id>')
 def ma_detail(ma_id):

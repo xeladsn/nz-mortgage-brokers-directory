@@ -14,7 +14,7 @@
 
         <section class="ma-list">
             {% for ma in mas %}
-            <article class="ma-card">
+            <article class="ma-card" data-services='{{ ma.services|tojson|safe }}'>
                 <div class="ma-header">
                     <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="ma-picture">
                     <div class="ma-info">
