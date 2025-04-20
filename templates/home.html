@@ -15,17 +15,18 @@
         <section class="ma-list">
             {% for ma in mas %}
             <article class="ma-card" data-services='{{ ma.services|tojson|safe }}'>
+                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="card-link"></a>
                 <div class="ma-header">
                     <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="ma-picture">
                     <div class="ma-info">
-                        <h2><a href="{{ url_for('ma_detail', ma_id=ma.id) }}">{{ ma.name }}</a> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                        <h2><span class="ma-name">{{ ma.name }}</span> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
                         <p class="company">{{ ma.company }}</p>
                     </div>
                 </div>
                 <p>{{ ma.description }}</p>
                 <div class="tags">
                     {% for tag in ma.tags[:5] %}
-                    <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag">{{ tag }}</a>
+                    <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag clickable">{{ tag }}</a>
                     {% endfor %}
                 </div>
                 <div class="endorsement">
@@ -41,7 +42,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more">See endorsements</a>
+                <span class="see-more clickable">See endorsements</span>
             </article>
             {% endfor %}
         </section>
