@@ -15,6 +15,7 @@
             <a href="#" class="button" onclick="openQuizModal()"><i class="fas fa-envelope"></i> Contact Us</a>
         </div>
     </div>
+    {% if show_filters %}    
     <div class="filters-row">
         <div class="filter-categories">
             <div class="filter-category">
@@ -106,6 +107,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </header>
 
 {% include 'components/quiz_modal.html' %}
@@ -510,10 +512,12 @@ nav ul li a {
 var specialty_routes_js = {};
 var service_routes_js = {};
 
+// Populate specialty routes
 {% for route, name in specialty_routes.items() %}
 specialty_routes_js["{{ route }}"] = "{{ name }}";
 {% endfor %}
 
+// Populate service routes
 {% for route, name in service_routes.items() %}
 service_routes_js["{{ route }}"] = "{{ name }}";
 {% endfor %}

@@ -53,7 +53,8 @@ def utility_processor():
         'specialty_routes': specialty_routes,
         'service_routes': service_routes,
         'reverse_specialty_routes': reverse_specialty_routes,
-        'reverse_service_routes': reverse_service_routes
+        'reverse_service_routes': reverse_service_routes,
+        'show_filters': False  # Default to False, will be overridden in specific routes
     }
 
 # Home route with filtering
@@ -86,7 +87,8 @@ def home():
     return render_template('home.html', 
                           mas=filtered_mas, 
                           specialty_routes=specialty_routes, 
-                          service_routes=service_routes)
+                          service_routes=service_routes,
+                          show_filters=True)
 
 # Email configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
