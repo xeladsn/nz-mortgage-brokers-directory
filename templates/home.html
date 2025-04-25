@@ -42,7 +42,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <span class="see-more clickable">See endorsements</span>
+                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more clickable">See endorsements</a>
             </article>
             {% endfor %}
         </section>
