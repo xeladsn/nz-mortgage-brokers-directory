@@ -1,70 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    {% include 'components/header.html' %}
+{% extends "base.html" %}
 
-    <main>
-        <h1>{{ title }}</h1>
+{% block title %}{{ title }}{% endblock %}
 
-        <section class="ma-list">
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    <div class="full-width-container">
+        <div class="card-row">
             {% for ma in mas %}
-            <article class="ma-card" data-services='{{ ma.services|tojson|safe }}'>
-                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="card-link"></a>
-                <div class="ma-header">
-                    <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="ma-picture">
-                    <div class="ma-info">
-                        <h2><span class="ma-name">{{ ma.name }}</span> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
-                        <p class="company">{{ ma.company }}</p>
+            <div class="card-column">
+                <article class="ma-card" data-services='{{ ma.services|tojson|safe }}'>
+                    <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="card-link"></a>
+                    <div class="ma-header">
+                        <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="ma-picture">
+                        <div class="ma-info">
+                            <h2><span class="ma-name">{{ ma.name }}</span> {% if ma.nationwide %}<span class="nationwide">Nationwide</span>{% endif %}</h2>
+                            <p class="company">{{ ma.company }}</p>
+                        </div>
                     </div>
-                </div>
-                <p>{{ ma.description }}</p>
-                <div class="tags">
-                    {% for tag in ma.tags[:5] %}
-                    <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag clickable">{{ tag }}</a>
-                    {% endfor %}
-                </div>
-                <div class="endorsement">
-                    {% for endorsement in ma.endorsements[:1] %}
-                    <div class="endorsement-picture-container">
-                        <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
-                        <div class="linkedin-watermark">in</div>
+                    <p>{{ ma.description }}</p>
+                    <div class="tags">
+                        {% for tag in ma.tags[:5] %}
+                        <a href="{{ url_for('specialty', type=reverse_specialty_routes[tag]) }}" class="tag clickable">{{ tag }}</a>
+                        {% endfor %}
                     </div>
-                    <div class="endorsement-text">
-                        <p>"{{ endorsement.comment }}"</p>
-                        <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
-                        <p>{{ endorsement.title }}</p>
+                    <div class="endorsement">
+                        {% for endorsement in ma.endorsements[:1] %}
+                        <div class="endorsement-picture-container">
+                            <img src="{{ url_for('static', filename=endorsement.picture) }}" alt="{{ endorsement.name }}" class="endorsement-picture">
+                            <div class="linkedin-watermark">in</div>
+                        </div>
+                        <div class="endorsement-text">
+                            <p>"{{ endorsement.comment }}"</p>
+                            <p>- {{ endorsement.name }}, {{ endorsement.date }}</p>
+                            <p>{{ endorsement.title }}</p>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-                <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more clickable">See endorsements</a>
-            </article>
+                    <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more clickable">See endorsements</a>
+                </article>
+            </div>
+            {% if loop.index % 3 == 0 and not loop.last %}
+            </div><div class="card-row">
+            {% endif %}
             {% endfor %}
-        </section>
-    </main>
+        </div>
+    </div>
+{% endblock %}
 
-    <aside>
-        <h2>Read this first 👋</h2>
-        <p>You're trying to navigate an unfamiliar market filled with conflicting advice—agents chasing commissions, lawyers looking to bill hours, and overwhelming financial jargon. It's tough to know where to turn or who genuinely has your interests at heart.</p>
-        <p>That's why we spoke to thousands of Kiwis to uncover which mortgage advisors they would recommend to their closest friend. Consider us your personal insider—we've vetted every advisor to ensure they're worthy of your trust.</p>
-        <h3>With Kiwi Homebuyers, you can :</h3>
-        <ul>
-            <li>See the top advisors across the country and who has endorsed them (and why)</li>
-            <li>Quickly filter based on your needs or take a quiz and narrow your search.</li>
-            <li>Send us a message and we'll personally introduce you to an advisor</li>
-        </ul>
-        <p><strong>Your ideal advisor, handpicked</strong></p>
-        <p>Let's get on the ladder 🪜,</p>
-        <p>Maria & Alex</p>
-    </aside>
-
-    <footer>
-        <p>&copy; 2025 Kiwi Homebuyers. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+{% block aside_content %}
+    <div class="sidebar-content">
+        <h3>Find Your Ideal Advisor</h3>
+        <p>We've vetted the best mortgage advisors in New Zealand to help you find the perfect match for your needs.</p>
+        <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About Us</a>
+    </div>
+{% endblock %}

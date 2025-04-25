@@ -3,7 +3,7 @@
         <nav>
             <ul>
                 <li><a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"></a></li>
-                <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About Us</a></li>
                 <li><a href="{{ url_for('blog') }}"><i class="fas fa-blog"></i> Blog</a></li>
             </ul>
         </nav>
@@ -509,18 +509,17 @@ nav ul li a {
 
 <script>
 // Initialize route mappings
-var specialty_routes_js = {};
-var service_routes_js = {};
+var specialty_routes_js = {
+    {% for route, name in specialty_routes.items() %}
+    "{{ route }}": "{{ name }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+};
 
-// Populate specialty routes
-{% for route, name in specialty_routes.items() %}
-specialty_routes_js["{{ route }}"] = "{{ name }}";
-{% endfor %}
-
-// Populate service routes
-{% for route, name in service_routes.items() %}
-service_routes_js["{{ route }}"] = "{{ name }}";
-{% endfor %}
+var service_routes_js = {
+    {% for route, name in service_routes.items() %}
+    "{{ route }}": "{{ name }}"{% if not loop.last %},{% endif %}
+    {% endfor %}
+};
 
 function openQuizModal() {
     document.getElementById('quizModal').style.display = 'block';

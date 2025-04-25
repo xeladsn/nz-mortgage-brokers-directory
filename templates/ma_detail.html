@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ ma.name }} - MA Details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    {% include 'components/header.html' %}
+{% extends "base.html" %}
 
-    <main class="ma-detail">
-        <div class="advisor-header">
+{% block title %}{{ ma.name }} - MA Details{% endblock %}
+
+{% block content %}
+    <div class="ma-detail">
+    <div class="advisor-header">
             <img src="{{ url_for('static', filename=ma.profile_picture) }}" alt="{{ ma.name }}" class="advisor-picture">
             <div class="advisor-info">
                 <h1>{{ ma.name }}</h1>
@@ -97,11 +91,12 @@
                 {% endfor %}
             </div>
         </section>
-    </main>
+    </div>
+{% endblock %}
 
-    <footer>
-        <p>&copy; 2025 Kiwi Homebuyers. All rights reserved.</p>
-    </footer>
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
     <div id="contactModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -155,6 +150,4 @@
             </form>
       </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+{% endblock %}

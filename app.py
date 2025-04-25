@@ -17,6 +17,14 @@ load_dotenv()
 if os.environ.get('FLASK_ENV') == 'production':
     app.config['SERVER_NAME'] = 'kiwihomebuyers.com'
     app.config['PREFERRED_URL_SCHEME'] = 'https'
+    app.config['ENV'] = 'production'
+else:
+    app.config['ENV'] = 'development'
+
+# Route for About page
+@app.route('/about')
+def about():
+    return render_template('about.html', title='About Us')
 
 # Mapping dictionaries for routes
 specialty_routes = {
