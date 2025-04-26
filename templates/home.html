@@ -40,9 +40,6 @@
                     <a href="{{ url_for('ma_detail', ma_id=ma.id) }}" class="see-more clickable">See endorsements</a>
                 </article>
             </div>
-            {% if loop.index % 3 == 0 and not loop.last %}
-            </div><div class="card-row">
-            {% endif %}
             {% endfor %}
         </div>
     </div>
