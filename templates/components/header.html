@@ -825,6 +825,12 @@ function applyFilters() {
     const specialtyNames = specialtyFilters.map(route => specialty_routes_js[route]).filter(Boolean);
     const serviceNames = serviceFilters.map(route => service_routes_js[route]).filter(Boolean);
     
+    // Track which cards are visible
+    const visibleCards = [];
+    const hiddenCards = [];
+    const newlyVisibleCards = [];
+    const newlyHiddenCards = [];
+    
     // Filter each card based on selected criteria
     maCards.forEach(card => {
         // Get tags and services from the card
@@ -848,12 +854,126 @@ function applyFilters() {
         let matchesService = serviceFilters.length === 0 || 
             cardServices.some(service => serviceNames.includes(service));
         
-        // Show or hide the card based on filter match
-        if (matchesSpecialty && matchesService) {
-            card.style.display = 'block';
+        // Track visible and hidden cards
+        const wasHidden = card.style.display === 'none';
+        const willBeVisible = matchesSpecialty && matchesService;
+        
+        if (willBeVisible) {
+            // Don't set display: block yet, we'll do it after fade-in
+            visibleCards.push(card);
+            
+            // Track cards that were hidden but will now be visible
+            if (wasHidden) {
+                newlyVisibleCards.push(card);
+                // Start with opacity 0 for fade-in
+                card.style.opacity = '0';
+                card.style.display = 'block';
+            }
         } else {
-            card.style.display = 'none';
+            // Track cards that were visible but will now be hidden
+            if (!wasHidden) {
+                newlyHiddenCards.push(card);
+                // Start fade-out but keep display: block initially
+                card.style.transition = 'opacity 0.3s ease-out';
+                card.style.opacity = '0';
+            } else {
+                // Already hidden cards stay hidden
+                card.style.display = 'none';
+            }
+            hiddenCards.push(card);
         }
+    });
+    
+    // Apply fade-in effect to newly visible cards
+    if (newlyVisibleCards.length > 0) {
+        setTimeout(() => {
+            newlyVisibleCards.forEach(card => {
+                card.style.transition = 'opacity 0.5s ease-in';
+                card.style.opacity = '1';
+            });
+        }, 50); // Small delay to ensure the transition works
+    }
+    
+    // Complete the fade-out for newly hidden cards
+    if (newlyHiddenCards.length > 0) {
+        setTimeout(() => {
+            newlyHiddenCards.forEach(card => {
+                card.style.display = 'none';
+                // Reset opacity for future fade-ins
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transition = '';
+                }, 300);
+            });
+        }, 300); // Match the fade-out duration
+    }
+    
+    // Rearrange cards to fill top rows first
+    rearrangeCards(visibleCards, hiddenCards);
+}
+
+// Function to rearrange cards so visible ones fill top rows first
+function rearrangeCards(visibleCards, hiddenCards) {
+    // Get all card columns
+    const cardColumns = document.querySelectorAll('.card-column');
+    if (!cardColumns.length) return;
+    
+    // Get the parent container that holds all card columns
+    const cardRow = cardColumns[0].parentElement;
+    if (!cardRow) return;
+    
+    // Create an array of all cards (visible first, then hidden)
+    const allCards = [...visibleCards, ...hiddenCards];
+    
+    // Store the original positions of all cards for transition
+    const originalPositions = new Map();
+    allCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        originalPositions.set(card, { top: rect.top, left: rect.left });
+    });
+    
+    // Temporarily detach all cards from their columns
+    allCards.forEach(card => {
+        const column = card.closest('.card-column');
+        if (column) {
+            column.removeChild(card);
+        }
+    });
+    
+    // Place cards back into columns in the new order
+    allCards.forEach((card, index) => {
+        const columnIndex = index % cardColumns.length;
+        cardColumns[columnIndex].appendChild(card);
+    });
+    
+    // Apply transitions to smoothly move cards to their new positions
+    requestAnimationFrame(() => {
+        allCards.forEach(card => {
+            const originalPos = originalPositions.get(card);
+            if (!originalPos) return;
+            
+            const newRect = card.getBoundingClientRect();
+            const deltaX = originalPos.left - newRect.left;
+            const deltaY = originalPos.top - newRect.top;
+            
+            // Apply initial transform to make it appear in the original position
+            card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            card.style.transition = 'none';
+            
+            // Force reflow
+            card.offsetHeight;
+            
+            // Apply transition and move to the new position
+            card.style.transition = 'transform 0.5s ease-in-out';
+            card.style.transform = 'translate(0, 0)';
+            
+            // Clean up after transition
+            card.addEventListener('transitionend', function onTransitionEnd() {
+                card.style.transition = '';
+                card.style.transform = '';
+                card.removeEventListener('transitionend', onTransitionEnd);
+            }, { once: true });
+        });
     });
 }
 
