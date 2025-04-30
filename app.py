@@ -93,6 +93,7 @@ def home():
             ma['services'] = []
     
     return render_template('home.html', 
+                          title='KiwiHomeBuyers',
                           mas=filtered_mas, 
                           specialty_routes=specialty_routes, 
                           service_routes=service_routes,
