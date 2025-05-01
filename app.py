@@ -662,14 +662,18 @@ def specialty(type):
     if type not in specialty_routes:
         abort(404)
     filtered_mas = [ma for ma in mas if specialty_routes[type] in ma['tags']]
-    return render_template('home.html', mas=filtered_mas, title=f"Top {specialty_routes[type]} Expert Firms")
+    # Capitalize each word in the specialty name
+    capitalized_specialty = ' '.join(word.capitalize() for word in specialty_routes[type].split())
+    return render_template('home.html', mas=filtered_mas, title=f"Top {capitalized_specialty} Advisors")
 
 @app.route('/service/<type>')
 def service(type):
     if type not in service_routes:
         abort(404)
     filtered_mas = [ma for ma in mas if service_routes[type] in ma['services']]
-    return render_template('home.html', mas=filtered_mas, title=f"{service_routes[type]}")
+    # Capitalize each word in the service name
+    capitalized_service = ' '.join(word.capitalize() for word in service_routes[type].split())
+    return render_template('home.html', mas=filtered_mas, title=f"{capitalized_service}")
 
 @app.route('/blog')
 def blog():
