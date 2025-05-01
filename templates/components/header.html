@@ -19,7 +19,6 @@
     <div class="filters-row">
         <div class="filter-categories">
             <div class="filter-category">
-                <span class="filter-label">Specialty:</span>
                 <div class="filter-scroll-wrapper">
                     <button class="scroll-button specialty-scroll-left" aria-label="Scroll left">
                         <i class="fas fa-chevron-left"></i>
@@ -62,7 +61,6 @@
             </div>
             
             <div class="filter-category">
-                <span class="filter-label">Service:</span>
                 <div class="filter-scroll-wrapper">
                     <button class="scroll-button service-scroll-left" aria-label="Scroll left">
                         <i class="fas fa-chevron-left"></i>
@@ -235,7 +233,7 @@ nav ul li a {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     width: 100%;
-    padding: 5px 40px; /* Add padding for the scroll buttons and a bit of top padding */
+    padding: 5px 0 5px 0; /* Removed left padding to align with logo */
 }
 
 .filter-scroll-container::-webkit-scrollbar {
